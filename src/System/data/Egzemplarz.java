@@ -11,8 +11,8 @@ public class Egzemplarz {
         this.numer_seryjny = numer_seryjny;
         this.model = model;
     }
-    void zmienStanSprzetu(){
-
+    void zmienStanSprzetu(StanSprzetu stan_egzemplarza){
+        this.stan_egzemplarza=stan_egzemplarza;
     }
 
     public StanSprzetu getStan_egzemplarza() {
