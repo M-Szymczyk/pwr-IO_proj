@@ -1,3 +1,6 @@
+package System;
+
+import System.Users.Uzytkownik;
 import System.data.Kategoria;
 import System.data.Model;
 import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
