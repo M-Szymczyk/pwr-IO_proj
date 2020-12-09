@@ -15,7 +15,7 @@ public class Aplikacja {
 
     public static void dodajModel(Model model){
         for(Model x: modele){
-            if(model.getNazwa.equals(x.getNazwa())) {
+            if(model.getNazwa().equals(x.getNazwa())) {
                 System.out.println("Model już istnieje") ;
                 return;
             }

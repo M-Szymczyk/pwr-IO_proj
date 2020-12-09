@@ -43,7 +43,7 @@ public class Model {
         this.ilosDostepnychEgzemplarzy = ilosDostepnychEgzemplarzy;
     }
 
-    public String getNazwaModelu() {
+    public String getNazwa() {
         return nazwaModelu;
     }
 
