@@ -102,5 +102,9 @@ public class Aplikacja {
         kategorie.add(k);
     }
 
+    public static Model wyszukajModel(Model m){
+        for(Model mod:modele)
+            m.equals(mod)
+    }
 }
 

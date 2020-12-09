@@ -12,12 +12,32 @@ public class Wypozyczenie {
     private Double koszt_wypozyczenia;
     ArrayList<Egzemplarz> egzemplarze;
 
+
+
     public void wydluzWypozyczenie(Date nowaData){
         setData_zwrotu(nowaData);
     }
 
     public void naliczDodatkowaOplate(Double oplata){
         setKoszt_wypozyczenia(getKoszt_wypozyczenia()+oplata);
+    }
+
+    public Wypozyczenie(Integer id_wypozyczajacego, Date data_wypozyczenia, Date data_zwrotu, Model m,Integer ilosc) throws Exception {
+        this.id_wypozyczajacego = id_wypozyczajacego;
+        this.data_wypozyczenia = data_wypozyczenia;
+        this.data_zwrotu = data_zwrotu;
+        this.egzemplarze = new ArrayList<>();
+        int dodano=0;
+        for (Egzemplarz e : m.getEgzemplarze())
+
+            if (e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY)) {
+                this.egzemplarze.add(e);
+                dodano++;
+                if(ilosc>dodano)
+                    return;
+            }
+
+        throw new Exception("Brak dostepnych egzemplarzy");
     }
 
     public void setData_zwrotu(Date data_zwrotu) {
