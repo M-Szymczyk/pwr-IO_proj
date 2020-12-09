@@ -1,19 +1,8 @@
 package System.Users;
+import System.Aplikacja;
+import System.data.AppException;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import System.Aplikacja;
-enum TypUzytkownika{
-    KLIENT("klient"),
-    PRACOWNIK("pracownik"),
-    KIEROWNIK("kierownik"),
-    UNNOWN("");
-
-    String nazwaTypuUzytkownika;
-    TypUzytkownika(String uzytkownik){ nazwaTypuUzytkownika = uzytkownik;}
-
-    @Override
-    public String toString(){return nazwaTypuUzytkownika;}
-}
 
 
 public class Uzytkownik {
@@ -93,8 +82,18 @@ public class Uzytkownik {
     }
     Uzytkownik(){}
 
-    public void rejestracja(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user){
+    public void rejestracja(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user) throws AppException {
         Uzytkownik currUser = new Uzytkownik(imie, nazwisko, login, haslo, email,user);
         Aplikacja.rejestracja(currUser);
     }
+
+    public void logowanie(String login_email, String haslo) throws AppException {
+        Aplikacja.logowanie(login_email, haslo);
+    }
+
+    public boolean checkPassword(String haslo){
+        if(this.haslo.equals(haslo)) return true;
+        return false;
+    }
+
 }
