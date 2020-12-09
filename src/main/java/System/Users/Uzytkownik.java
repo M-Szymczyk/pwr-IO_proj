@@ -51,7 +51,7 @@ public class Uzytkownik {
     }
     public void setTypUzytkownika(String user) {
         if (user == null || user.equals("")) {
-            this.typUzytkownika = TypUzytkownika.UNNOWN;
+            //this.typUzytkownika = TypUzytkownika.UNNOWN;
             return;
         }
         for (TypUzytkownika x : TypUzytkownika.values()) {

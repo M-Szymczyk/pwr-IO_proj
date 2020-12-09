@@ -14,8 +14,19 @@ public class Aplikacja {
     static ArrayList<Uzytkownik> uzytkownicy;
     static ArrayList<Kategoria> kategorie;
     static ArrayList<Model> modele;
-    public static void main(String[] args) {
-        System.out.println("Hello");
+
+    public Aplikacja() {
+        uzytkownicy=new ArrayList<>();
+        kategorie=new ArrayList<>();
+        modele=new ArrayList<>();
+    }
+
+    public static void main(String[] args) throws AppException {
+        new Aplikacja();
+        Kategoria kategoria=new Kategoria("kat","");
+        kategorie.add(kategoria);
+        modele.add(new Model("asdasd",kategoria));
+        edytujModel("","a",1.2,1.3,"kat");
     }
 
 
@@ -39,17 +50,17 @@ public class Aplikacja {
                     TypUzytkownika typ = x.getTypUzytkownika();
                     switch(typ){
                         case KLIENT:
-                            klientMenu();
+                            //klientMenu();
                             break;
                         case PRACOWNIK:
-                            pracownikMenu();
+                            //pracownikMenu();
                             break;
                         case KIEROWNIK:
-                            kierownikMenu();
+                            //kierownikMenu();
                             break;
                         case UNKNOWN:
                             throw new AppException("Nieokreslony uzytkownik (TypUzytkownika = UNKNOWN)");
-                            break;
+                            //break;
                     }
                 }
 
@@ -83,7 +94,7 @@ public class Aplikacja {
                 }
             }
         }
-        if(znalezionoKategorie == false ){
+        if(!znalezionoKategorie){
             throw new AppException("Nie ma takiej kategorii");
         }
         if(!znalezionoModel){
