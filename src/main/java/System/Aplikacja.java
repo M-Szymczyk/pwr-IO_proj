@@ -7,7 +7,7 @@ import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Iterator;
 
 
 public class Aplikacja {
@@ -15,7 +15,7 @@ public class Aplikacja {
     static ArrayList<Kategoria> kategorie;
     static ArrayList<Model> modele;
     public static void main(String[] args) {
-
+        System.out.println("Hello");
     }
 
 
@@ -39,17 +39,17 @@ public class Aplikacja {
                     TypUzytkownika typ = x.getTypUzytkownika();
                     switch(typ){
                         case KLIENT:
-                            //klientMenu();
+                            klientMenu();
                             break;
                         case PRACOWNIK:
-                            //pracownikMenu();
+                            pracownikMenu();
                             break;
                         case KIEROWNIK:
-                            //kierownikMenu();
+                            kierownikMenu();
                             break;
-//                        case UNKNOWN:
-//                            throw new AppException("Nieokreslony uzytkownik (TypUzytkownika = UNKNOWN)");
-//                            break;
+                        case UNKNOWN:
+                            throw new AppException("Nieokreslony uzytkownik (TypUzytkownika = UNKNOWN)");
+                            break;
                     }
                 }
 
@@ -66,6 +66,35 @@ public class Aplikacja {
         }
         modele.add(model);
     }
+    public static void edytujModel(String oldName, String newName, double cenaZaDzien, double cenaZaEgzemplarz, String kategoria)throws AppException{
+        boolean znalezionoKategorie = false;
+        boolean znalezionoModel = false;
+        for(Model x: modele){
+            if(x.getNazwa().equals(oldName)){
+                znalezionoModel = true;
+                x.setNazwaModelu(newName);
+                x.setCenaZaDzienWypozyczenia(cenaZaDzien);
+                x.setCenaZaUszedzenia(cenaZaEgzemplarz);
+                for(Kategoria a: kategorie){
+                    if(a.getNazwaKategorii().equals(kategoria)){
+                        x.setKategoria(a);
+                        znalezionoKategorie = true;
+                    }
+                }
+            }
+        }
+        if(znalezionoKategorie == false ){
+            throw new AppException("Nie ma takiej kategorii");
+        }
+        if(!znalezionoModel){
+            throw new AppException("Nie ma takiego modelu");
+        }
+    }
+
+    public static void edytujOpisModelu(String name, String opis){
+
+    }
+
     public static void dodajKategorie(Kategoria k){
         kategorie.add(k);
     }

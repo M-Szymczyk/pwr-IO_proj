@@ -4,7 +4,7 @@ public enum TypUzytkownika{
     KLIENT("klient"),
     PRACOWNIK("pracownik"),
     KIEROWNIK("kierownik"),
-    UNNOWN("");
+    UNKNOWN("");
 
     String nazwaTypuUzytkownika;
     TypUzytkownika(String uzytkownik){ nazwaTypuUzytkownika = uzytkownik;}
