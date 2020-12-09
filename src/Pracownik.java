@@ -1,3 +1,5 @@
+import System.data.Kategoria;
+import System.data.Model;
 
 public class Pracownik extends Uzytkownik{
 
@@ -6,13 +8,12 @@ public class Pracownik extends Uzytkownik{
         setTypUzytkownika("pracownik");
     }
 
-    public void dodajNowyModel(String nazwa){
-        Model currModel = new Model(nazwa);
+    public void dodajNowyModel(String nazwa, Kategoria kat){
+        Model currModel = new Model(nazwa, kat);
         Aplikacja.dodajModel(currModel);
-    };
+    }
     public void dodajNowyModel(String nazwa, double cenaZaDzien, double cenaZaEgzemplarz, Kategoria kategoria){
         Model currModel = new Model(nazwa, cenaZaDzien, cenaZaEgzemplarz, kategoria);
         Aplikacja.dodajModel(currModel);
-    };
-
+    }
 }

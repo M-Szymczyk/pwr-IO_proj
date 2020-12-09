@@ -15,20 +15,28 @@ public class Model {
         return egzemplarze;
     }
 
-    public Model(ArrayList<Egzemplarz> egzemplarze, Integer ilosDostepnychEgzemplarzy,
-                 String nazwaModelu, Double cenaZaDzienWypozyczenia,
-                 Double cenaZaUszedzenia, Kategoria kategoria, String opis) {
-        this.egzemplarze = egzemplarze;
-        this.ilosDostepnychEgzemplarzy = ilosDostepnychEgzemplarzy;
+    public Model(String nazwaModelu, Double cenaZaDzienWypozyczenia,
+                 Double cenaZaUszedzenia, Kategoria kategoria) {
+        this.egzemplarze = new ArrayList<>();
+        this.ilosDostepnychEgzemplarzy = 0;
         this.nazwaModelu = nazwaModelu;
         this.cenaZaDzienWypozyczenia = cenaZaDzienWypozyczenia;
         this.cenaZaUszedzenia = cenaZaUszedzenia;
         this.kategoria = kategoria;
-        this.opis = opis;
+        this.opis = "";
+    }
+    public Model(String nazwaModelu, Kategoria kategoria) {
+        this.egzemplarze = new ArrayList<>();
+        this.ilosDostepnychEgzemplarzy = 0;
+        this.nazwaModelu = nazwaModelu;
+        this.cenaZaDzienWypozyczenia = 0.0;
+        this.cenaZaUszedzenia = 0.0;
+        this.kategoria = kategoria;
+        this.opis = "";
     }
 
     public void usunEgzemplarz(int numerSeryjny){
-
+        egzemplarze.removeIf(e -> e.getNumer_seryjny().equals(numerSeryjny));
     }
 
     public void setEgzemplarze(ArrayList<Egzemplarz> egzemplarze) {
