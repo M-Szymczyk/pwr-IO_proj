@@ -2,7 +2,14 @@ import System.data.Kategoria;
 import System.data.Model;
 import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 
+
 import java.util.ArrayList;
+
+class AppException extends Exception{
+    public AppException(String message){
+        super(message);
+    }
+}
 
 public class Aplikacja {
     static ArrayList<Uzytkownik> uzytkownicy;
@@ -13,14 +20,79 @@ public class Aplikacja {
     }
 
 
-    public static void dodajModel(Model model){
+    public static void rejestracja(Uzytkownik user) throws AppException{
+        for(Uzytkownik x: uzytkownicy){
+            if(x.getLogin().equals(user.getLogin())){
+                throw new AppException("Login jest zajety");
+            }else if (x.getEmail().equals(user.getEmail())){
+                throw new AppException("email jest juz zarejestrowany");
+            }else{
+                uzytkownicy.add(user);
+            }
+        }
+    }
+    public static void logowanie(String login, String haslo)throws AppException{
+        for(Uzytkownik x: uzytkownicy){
+            if(x.getLogin().equals(login)){
+                if(!x.checkPassword(haslo)){
+                    throw new AppException("Niepoprawne dane");
+                }else{
+                    TypUzytkownika typ = x.getTypUzytkownika();
+                    switch(typ){
+                        case KLIENT:
+                            klientMenu();
+                            break;
+                        case PRACOWNIK:
+                            pracownikMenu();
+                            break;
+                        case KIEROWNIK:
+                            kierownikMenu();
+                            break;
+                        case UNKNOWN:
+                            throw new AppException("Nieokreslony uzytkownik (TypUzytkownika = UNKNOWN)");
+                            break;
+                    }
+                }
+
+            }
+        }
+    }
+    public static void logowanie(String email, String haslo)throws AppException{
+        for(Uzytkownik x: uzytkownicy){
+            if(x.getEmail().equals(haslo)){
+                if(!x.checkPassword(haslo)){
+                    throw new AppException("Niepoprawne dane");
+                }else{
+                    TypUzytkownika typ = x.getTypUzytkownika();
+                    switch(typ){
+                        case KLIENT:
+                            klientMenu();
+                            break;
+                        case PRACOWNIK:
+                            pracownikMenu();
+                            break;
+                        case KIEROWNIK:
+                            kierownikMenu();
+                            break;
+                        case UNKNOWN:
+                            throw new AppException("Nieokreslony uzytkownik (TypUzytkownika = UNKNOWN)");
+                            break;
+                    }
+                }
+
+            }
+        }
+    }
+
+
+
+    public static void dodajModel(Model model) throws AppException{
         for(Model x: modele){
-            if(model.getNazwa().equals(x.getNazwa())) {
-                System.out.println("Model już istnieje") ;
+            if(model.getNazwa.equals(x.getNazwa())) {
+                throw new AppException("Model juz istnieje");
                 return;
             }
         }
-        System.out.println("Dodano pomyslnie");
         modele.add(model);
     }
     public static void dodajKategorie(Kategoria k){
@@ -28,3 +100,4 @@ public class Aplikacja {
     }
 
 }
+
