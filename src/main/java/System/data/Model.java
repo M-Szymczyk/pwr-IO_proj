@@ -18,7 +18,11 @@ public class Model {
     public Model(String nazwaModelu, Double cenaZaDzienWypozyczenia,
                  Double cenaZaUszedzenia, Kategoria kategoria) {
         this.egzemplarze = new ArrayList<>();
-        this.ilosDostepnychEgzemplarzy = 0;
+        int ilosc=0;
+        for(Egzemplarz e :egzemplarze)
+            if(e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY))
+                ilosc++;
+        this.ilosDostepnychEgzemplarzy = ilosc;
         this.nazwaModelu = nazwaModelu;
         this.cenaZaDzienWypozyczenia = cenaZaDzienWypozyczenia;
         this.cenaZaUszedzenia = cenaZaUszedzenia;
@@ -40,7 +44,12 @@ public class Model {
     }
 
     public void setEgzemplarze(ArrayList<Egzemplarz> egzemplarze) {
+        int ilosc=0;
         this.egzemplarze = egzemplarze;
+        for(Egzemplarz e :egzemplarze)
+            if(e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY))
+                ilosc++;
+        ilosDostepnychEgzemplarzy=ilosc;
     }
 
     public Integer getIlosDostepnychEgzemplarzy() {

@@ -1,13 +1,13 @@
 package System;
+import System.Users.Klient;
 import System.Users.Uzytkownik;
 import System.Users.TypUzytkownika;
-import System.data.AppException;
-import System.data.Kategoria;
-import System.data.Model;
+import System.data.*;
 import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Aplikacja {
@@ -15,7 +15,7 @@ public class Aplikacja {
     static ArrayList<Kategoria> kategorie;
     static ArrayList<Model> modele;
     public static void main(String[] args) {
-        System.out.println("Hello");
+
     }
 
 
@@ -39,17 +39,17 @@ public class Aplikacja {
                     TypUzytkownika typ = x.getTypUzytkownika();
                     switch(typ){
                         case KLIENT:
-                            klientMenu();
+                            //klientMenu();
                             break;
                         case PRACOWNIK:
-                            pracownikMenu();
+                            //pracownikMenu();
                             break;
                         case KIEROWNIK:
-                            kierownikMenu();
+                            //kierownikMenu();
                             break;
-                        case UNKNOWN:
-                            throw new AppException("Nieokreslony uzytkownik (TypUzytkownika = UNKNOWN)");
-                            break;
+//                        case UNKNOWN:
+//                            throw new AppException("Nieokreslony uzytkownik (TypUzytkownika = UNKNOWN)");
+//                            break;
                     }
                 }
 
@@ -70,9 +70,5 @@ public class Aplikacja {
         kategorie.add(k);
     }
 
-    public static Model wyszukajModel(Model m){
-        for(Model mod:modele)
-            m.equals(mod)
-    }
 }
 

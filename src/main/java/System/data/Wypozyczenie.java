@@ -27,17 +27,15 @@ public class Wypozyczenie {
         this.data_wypozyczenia = data_wypozyczenia;
         this.data_zwrotu = data_zwrotu;
         this.egzemplarze = new ArrayList<>();
-        int dodano=0;
+        if(m.getIlosDostepnychEgzemplarzy()>ilosc)
+            throw new Exception("Brak dostepnych egzemplarzy");
         for (Egzemplarz e : m.getEgzemplarze())
-
             if (e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY)) {
                 this.egzemplarze.add(e);
-                dodano++;
-                if(ilosc>dodano)
-                    return;
+                e.zmienStanSprzetu(StanSprzetu.NIEDOSTEPNY);
             }
 
-        throw new Exception("Brak dostepnych egzemplarzy");
+
     }
 
     public void setData_zwrotu(Date data_zwrotu) {

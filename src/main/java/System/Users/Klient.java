@@ -14,7 +14,8 @@ public class Klient extends Uzytkownik {
     public void zglosZgubienieZniszczenia(Model m, Wypozyczenie w){
 
     }
-    public void wydluzWypozyczenie(Date date){
+    public void wydluzWypozyczenie(Date date,Wypozyczenie wypozyczenie){
+
 
     }
     public void wypozyczSprzet(Model model,Date dateWyp,Date dateZwrot,Integer ilosc) throws Exception {
