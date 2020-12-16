@@ -26,7 +26,7 @@ public class Pracownik extends Uzytkownik {
         Aplikacja.dodajModel(currModel);
     }
 
-    public void analizujStanSprzetu(Egzemplarz e){
+    public void analizujStanSprzetu(Egzemplarz e) throws Exception {
         Scanner scan = new Scanner(System.in);
         System.out.println("Czy sprzet jest uszkodzony? T/N");
         int wybor = scan.nextInt();

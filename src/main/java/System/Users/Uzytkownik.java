@@ -51,7 +51,7 @@ public class Uzytkownik {
     }
     public void setTypUzytkownika(String user) {
         if (user == null || user.equals("")) {
-            //this.typUzytkownika = TypUzytkownika.UNNOWN;
+            this.typUzytkownika = TypUzytkownika.UNKNOWN;
             return;
         }
         for (TypUzytkownika x : TypUzytkownika.values()) {
@@ -62,7 +62,7 @@ public class Uzytkownik {
         }
     }
 
-    Uzytkownik(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user){
+    public Uzytkownik(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user){
         id = count.incrementAndGet();
         this.setImie(imie);
         this.setNazwisko(nazwisko);
@@ -80,16 +80,18 @@ public class Uzytkownik {
         this.setLogin(login);
         this.setTypUzytkownika(user);
     }
-    Uzytkownik(){}
+    public Uzytkownik(){}
 
-    public void rejestracja(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user) throws AppException {
-        Uzytkownik currUser = new Uzytkownik(imie, nazwisko, login, haslo, email,user);
-        Aplikacja.rejestracja(currUser);
-    }
 
-    public void logowanie(String login_email, String haslo) throws AppException {
-        Aplikacja.logowanie(login_email, haslo);
-    }
+    //chyba niepotrzebne, przynajmniej rejestracja
+//    public void rejestracja(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user) throws AppException {
+//        Uzytkownik currUser = new Uzytkownik(imie, nazwisko, login, haslo, email,user);
+//        Aplikacja.rejestracja(currUser);
+//    }
+//
+//    public void logowanie(String login_email, String haslo) throws AppException {
+//        Aplikacja.logowanie(login_email, haslo);
+//    }
 
     public boolean checkPassword(String haslo){
         if(this.haslo.equals(haslo)) return true;

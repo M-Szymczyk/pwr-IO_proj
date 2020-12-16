@@ -47,9 +47,16 @@ public class Klient extends Uzytkownik {
      * @throws Exception jezeli nie ssa dostepne zadne sprzety
      */
     public void wypozyczSprzet(Model model,Date dateWyp,Date dateZwrot,Integer ilosc) throws Exception {
+        sprawdzDostepnosc(model);
         dodajDoWypozyczenia(new Wypozyczenie(idKlienta,dateWyp,dateZwrot,model,ilosc));
     }
 
+    public void sprawdzDostepnosc(Model model){
+
+    }
+    public void sprawdzDostepnosc(String nazwa){
+
+    }
     /**
      * //todo metoda do uzupelnienia
      * Wyszukuje modele po danje nazwie???

@@ -8,6 +8,7 @@ import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
 
 public class Aplikacja {
@@ -15,21 +16,75 @@ public class Aplikacja {
     static ArrayList<Kategoria> kategorie;
     static ArrayList<Model> modele;
 
-    public Aplikacja() {
-        uzytkownicy=new ArrayList<>();
-        kategorie=new ArrayList<>();
-        modele=new ArrayList<>();
-    }
 
     public static void main(String[] args) throws AppException {
-        new Aplikacja();
-        Kategoria kategoria=new Kategoria("kat","");
-        kategorie.add(kategoria);
-        modele.add(new Model("asdasd",kategoria));
-        edytujModel("","a",1.2,1.3,"kat");
+        start();
     }
 
+    private static void consoleClean(){
+        for(int i=0; i<10; i++){
+            System.out.println();
+        }
+    }
+    private static void start() throws AppException {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("1.Rejestracja");
+        System.out.println("2.Logowanie");
+        int choose = scan.nextInt();
 
+        switch (choose){
+            case 1: rejestracjaMenu();
+                break;
+            case 2: logowanieMenu();
+            break;
+            default:
+                    consoleClean();
+                    System.out.println("Menu start");
+                    start();
+                    break;
+        }
+    }
+
+    private static void logowanieMenu() throws AppException {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Login lub email: ");
+        String login_email = sc.nextLine();
+        System.out.print("Haslo: ");
+        String haslo = sc.nextLine();
+
+        logowanie(login_email, haslo);
+    }
+    private static void rejestracjaMenu() throws AppException {
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Imie: ");
+        String imie = scan.nextLine();
+        System.out.print("Nazwisko: ");
+        String nazwisko = scan.nextLine();
+        System.out.print("Email: ");
+        String email = scan.nextLine();
+        System.out.print("Login: ");
+        String login = scan.nextLine();
+        System.out.print("Haslo: ");
+        String haslo = scan.nextLine();
+        System.out.println("\n\nTwoje dane uzytkownika: ");
+        System.out.println(imie);
+        System.out.println(nazwisko);
+        System.out.println(login);
+        System.out.println(haslo);
+        System.out.println(email);
+        sprawdzDane();
+
+        Uzytkownik user = new Uzytkownik(imie, nazwisko, login, haslo, email, TypUzytkownika.KLIENT);
+        rejestracja(user);
+
+    }
+    public static void sprawdzDane() throws AppException {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("\nPowtórzyć wpisywanie danych? 1.Tak/2.Nie");
+        int wybor = scan.nextInt();
+        if(wybor == 1) rejestracjaMenu();
+        else if(wybor != 2) sprawdzDane();
+    }
     public static void rejestracja(Uzytkownik user) throws AppException {
         for(Uzytkownik x: uzytkownicy){
             if(x.getLogin().equals(user.getLogin())){
@@ -60,15 +115,12 @@ public class Aplikacja {
                             break;
                         case UNKNOWN:
                             throw new AppException("Nieokreslony uzytkownik (TypUzytkownika = UNKNOWN)");
-                            //break;
                     }
                 }
 
             }
         }
     }
-
-
     public static void dodajModel(Model model) throws AppException{
         for(Model x: modele){
             if(model.getNazwa().equals(x.getNazwa())) {
@@ -94,18 +146,62 @@ public class Aplikacja {
                 }
             }
         }
-        if(!znalezionoKategorie){
+        if(znalezionoKategorie == false ){
             throw new AppException("Nie ma takiej kategorii");
         }
         if(!znalezionoModel){
             throw new AppException("Nie ma takiego modelu");
         }
     }
-
     public static void edytujOpisModelu(String name, String opis){
 
     }
+    public static void dodajEgzemplarze(int ilosc, String nazwa) throws AppException {
+        Scanner sc = new Scanner(System.in);
+            Model x = wyszukajModel(nazwa);
+            if(x != null) {
+                for (int i = 0; i < ilosc; i++) {
+                    Egzemplarz egzemplarz = new Egzemplarz(StanSprzetu.DOSTEPNY, x);
+                    x.dodajEgzemplarz(egzemplarz);
+                }
+            }else{
+                System.out.println("Nie znaleziono modelu o podanej nazwie");
+                System.out.print("Chcesz stworzyć nowy model? 1.Tak/2.Nie");
+                int wybor = sc.nextInt();
+                switch (wybor){
+                    case 1:
+                        System.out.print("cena za dzien wypozyczenia: ");
+                        Double cenaZaDzien = sc.nextDouble();
+                        System.out.print("Cena za egzemplarz: ");
+                        Double cenaZaEgzemplarz = sc.nextDouble();
+                        System.out.print("Kategoria: ");
+                        String kategoria = sc.nextLine();
+                        Kategoria kat = new Kategoria(kategoria, "");
+                        Model model = new Model(nazwa, kat);
+                        dodajModel(model);
+                        for (int i = 0; i < ilosc; i++) {
+                            Egzemplarz egzemplarz = new Egzemplarz(StanSprzetu.DOSTEPNY, model);
+                            model.dodajEgzemplarz(egzemplarz);
+                        }
+                        break;
+                    case 2:
+                        return;
+                }
+            }
+    }
 
+
+    public static Model wyszukajModel(String nazwa){
+        boolean znalezionoModel = false;
+        Model curr = null;
+        for(Model x: modele) {
+            if (x.getNazwa().equals(nazwa)) {
+                znalezionoModel = true;
+                curr = x;
+            }
+        }
+        return curr;
+    }
     public static void dodajKategorie(Kategoria k){
         kategorie.add(k);
     }
