@@ -20,7 +20,7 @@ public class KlientTest {
         model=new Model("tsetModel",kategoria);
         ArrayList<Egzemplarz> egzemplarzArrayList=new ArrayList<>();
         for(int i=0;i<5;i++)
-            egzemplarzArrayList.add(new Egzemplarz(StanSprzetu.DOSTEPNY,i,model));
+            egzemplarzArrayList.add(new Egzemplarz(StanSprzetu.DOSTEPNY,model));
         model.setEgzemplarze(egzemplarzArrayList);
 
         klient=new Klient("mikolaj","ktos","admin","admin","admin@admin.pl", TypUzytkownika.KLIENT,1);

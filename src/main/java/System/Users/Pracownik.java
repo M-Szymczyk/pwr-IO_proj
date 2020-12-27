@@ -21,7 +21,8 @@ public class Pracownik extends Uzytkownik {
         Model currModel = new Model(nazwa, kat);
         Aplikacja.dodajModel(currModel);
     }
-    public void dodajNowyModel(String nazwa, double cenaZaDzien, double cenaZaEgzemplarz, Kategoria kategoria) throws AppException {
+    public void dodajNowyModel(String nazwa, double cenaZaDzien, double cenaZaEgzemplarz,
+                               Kategoria kategoria) throws AppException {
         Model currModel = new Model(nazwa, cenaZaDzien, cenaZaEgzemplarz, kategoria);
         Aplikacja.dodajModel(currModel);
     }
@@ -29,7 +30,7 @@ public class Pracownik extends Uzytkownik {
     public void analizujStanSprzetu(Egzemplarz e) throws Exception {
         Scanner scan = new Scanner(System.in);
         System.out.println("Czy sprzet jest uszkodzony? T/N");
-        int wybor = scan.nextInt();
+        int wybor = scan.nextInt();//todo nextLine?xd
         if(wybor == 'T' || wybor == 't'){
             e.zmienStanSprzetu(StanSprzetu.USZKODZONY);
         }
@@ -43,13 +44,15 @@ public class Pracownik extends Uzytkownik {
         System.out.print("Nowa nazwa: ");
         String newName = scan.nextLine();
         System.out.print("Cena za dzien wypozyczenia: ");
-        Double cenaZaDzien= -1.0;
+        double cenaZaDzien= -1.0;
         try{cenaZaDzien = Double.parseDouble(scan.nextLine());}
-        catch(Exception e){e.getMessage();}
+        catch(Exception e){
+            System.out.println(e.getMessage());}
         System.out.print("Cena za egzemplarz:");
-        Double cenaZaEgzemplarz = -1.0;
+        double cenaZaEgzemplarz = -1.0;
         try{cenaZaEgzemplarz = Double.parseDouble(scan.nextLine());}
-        catch(Exception e){e.getMessage();}
+        catch(Exception e){
+            System.out.println(e.getMessage());}
         System.out.print("Kategoria:");
         String kategoria = scan.nextLine();
 
@@ -59,6 +62,7 @@ public class Pracownik extends Uzytkownik {
     public void edytujOpisModelu(String nazwa, String opis){
      Aplikacja.edytujOpisModelu(nazwa, opis);
     }
+
 }
 
 
