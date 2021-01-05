@@ -1,6 +1,7 @@
 package System.Users;
 import System.Aplikacja;
 import System.data.AppException;
+import System.data.Model;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -96,6 +97,17 @@ public class Uzytkownik {
     public boolean checkPassword(String haslo){
         if(this.haslo.equals(haslo)) return true;
         return false;
+    }
+
+    /**
+     * //todo metoda do uzupelnienia
+     * Wyszukuje modele po danje nazwie???
+     * @param nazwa nazwa szukanego modelu
+     * @return referencje do modelu
+     */
+    public Model wyszukajModel(String nazwa){
+        //todo czy takie wykorzystanie metody klasy aplikacja jast poprawne?
+        return Aplikacja.wyszukajModel(nazwa);
     }
 
 }

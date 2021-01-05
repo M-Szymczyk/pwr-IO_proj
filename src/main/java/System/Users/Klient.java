@@ -2,7 +2,7 @@ package System.Users;
 
 import System.data.Model;
 import System.data.Wypozyczenie;
-
+import System.Aplikacja;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +19,7 @@ public class Klient extends Uzytkownik {
      * @param w w ktorym wypozyczeniu zgubiono sprzet
      * @param ilosc ilosc ile przedmiotow z wypozyczenia zgubiono
      */
-    public void zglosZgubienieZniszczenia(Wypozyczenie w,Integer ilosc){
+    public void zglosZgubienieZniszczenia(Wypozyczenie w, Integer ilosc){
         setNaleznoscDoZaplaty(getNaleznoscDoZaplaty()+w.getEgzemplarze().get(0).getModel().getCenaZaUszedzenia()*ilosc);
     }
 
@@ -47,33 +47,54 @@ public class Klient extends Uzytkownik {
      * @throws Exception jezeli nie ssa dostepne zadne sprzety
      */
     public void wypozyczSprzet(Model model,Date dateWyp,Date dateZwrot,Integer ilosc) throws Exception {
-        sprawdzDostepnosc(model);
-        dodajDoWypozyczenia(new Wypozyczenie(idKlienta,dateWyp,dateZwrot,model,ilosc));
+        if(sprawdzDostepnosc(model))
+            dodajWypożyczenie(new Wypozyczenie(idKlienta,dateWyp,dateZwrot,model,ilosc));
+        else
+            throw new Exception("Brak dostępnych egzemplarzy");
+    }
+    public void wypozyczSprzet(String nazwa,Date dateWyp,Date dateZwrot,Integer ilosc) throws Exception {
+        if(sprawdzDostepnosc(nazwa))
+            dodajWypożyczenie(new Wypozyczenie(idKlienta,dateWyp,dateZwrot,nazwa,ilosc));
+        else
+            throw new Exception("Brak dostępnych egzemplarzy");
     }
 
-    public void sprawdzDostepnosc(Model model){
+    public boolean sprawdzDostepnosc(Model model){
+            return (0<model.getIlosDostepnychEgzemplarzy());
 
     }
-    public void sprawdzDostepnosc(String nazwa){
 
+    public boolean sprawdzDostepnosc(String nazwa){
+        Model model = wyszukajModel(nazwa);
+        return sprawdzDostepnosc(model);
     }
-    /**
-     * //todo metoda do uzupelnienia
-     * Wyszukuje modele po danje nazwie???
-     * @param nazwa nazwa szukanego modelu
-     * @return referencje do modelu
-     */
-    public Model wyszukajModel(String nazwa){
-        return null;
-    }
+
 
     /**
      * Dodaje wypozyczenie do arrayListy
      * @param w dodawne wypozyczenie
      */
-    public void dodajDoWypozyczenia(Wypozyczenie w){
+    public void dodajWypożyczenie(Wypozyczenie w){
         wypozyczenia.add(w);
     }
+
+    public void przeglądajWypozyczenia(){
+        int iloscWyp = getiloscWypozyczen();
+        int i = 1;
+
+        System.out.println("Ilość aktywnych wypożyczeń: " + iloscWyp);
+
+        for(Wypozyczenie x: wypozyczenia) {
+            System.out.println("Wypożyczenie " + i + ":");
+            System.out.println("\t Data wypożyczenia: \t" + x.getData_wypozyczenia());
+            System.out.println("\t Data zwrotu: \t\t" + x.getData_zwrotu());
+            System.out.println("\t Moedel: \t\t" + x.getEgzemplarze().get(0).getModel().getNazwa());
+            System.out.println("\t Ilość egzemplarzy: \t" + x.getEgzemplarze().size());
+            System.out.println("\t Koszt wypożyczenia: \t" + x.getKoszt_wypozyczenia());
+        }
+
+    }
+
 
     /**
      * Konstruktor
@@ -104,6 +125,7 @@ public class Klient extends Uzytkownik {
     public Wypozyczenie getWypozyczenie(int id) {
         return wypozyczenia.get(id);
     }
+
     public Integer getiloscWypozyczen(){return  wypozyczenia.size();}
 
     public Integer getIdKlienta() {

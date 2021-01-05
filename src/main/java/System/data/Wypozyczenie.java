@@ -1,4 +1,5 @@
 package System.data;
+import System.Aplikacja;
 
 import sun.util.calendar.BaseCalendar;
 
@@ -38,23 +39,28 @@ public class Wypozyczenie {
      * @param id_wypozyczajacego nr idendyfikacjyjny wypozyczenia
      * @param data_wypozyczenia data wypozyczenia
      * @param data_zwrotu data zwtotu
-     * @param m model wyporzyczanego sprzetu
+     * @param model model wyporzyczanego sprzetu
      * @param ilosc ilosc wyporzyczanych egzemplarzy
      * @throws Exception brak wystarczajacej liczby dostepnych egzemplarzy
      */
-    public Wypozyczenie(Integer id_wypozyczajacego, Date data_wypozyczenia, Date data_zwrotu, Model m,Integer ilosc) throws Exception {
+    public Wypozyczenie(Integer id_wypozyczajacego, Date data_wypozyczenia, Date data_zwrotu, Model model,Integer ilosc) throws Exception {
         this.id_wypozyczajacego = id_wypozyczajacego;
         this.data_wypozyczenia = data_wypozyczenia;
         this.data_zwrotu = data_zwrotu;
         this.egzemplarze = new ArrayList<>();
-        this.koszt_wypozyczenia=(data_zwrotu.getTime()-data_wypozyczenia.getTime())*m.getCenaZaDzienWypozyczenia();
-        if(m.getIlosDostepnychEgzemplarzy()>ilosc)
+        this.koszt_wypozyczenia=(data_zwrotu.getTime()-data_wypozyczenia.getTime())*model.getCenaZaDzienWypozyczenia();
+        if(model.getIlosDostepnychEgzemplarzy()>ilosc)
             throw new Exception("Brak dostepnych egzemplarzy");
-        for (Egzemplarz e : m.getEgzemplarze())
+        for (Egzemplarz e : model.getEgzemplarze())
             if (e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY)) {
                 this.egzemplarze.add(e);
                 e.zmienStanSprzetu(StanSprzetu.NIEDOSTEPNY);
             }
+    }
+    public Wypozyczenie(Integer id_wypozyczajacego, Date data_wypozyczenia, Date data_zwrotu, String nazwa,Integer ilosc) throws Exception {
+        Model model = Aplikacja.wyszukajModel(nazwa);
+        new Wypozyczenie(id_wypozyczajacego, data_wypozyczenia, data_zwrotu, model, ilosc);
+
     }
 
     /////////////////////////// gettery i settery ///////////////////////////////////////

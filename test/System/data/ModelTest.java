@@ -50,4 +50,6 @@ public class ModelTest {
         //todo wydaje mi sie ze powinno wyzucic blad jak chcesz przypisac egzemplarz innego modelu
 
     }
+
+
 }
