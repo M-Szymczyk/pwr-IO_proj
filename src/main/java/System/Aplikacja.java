@@ -13,9 +13,9 @@ import java.util.Scanner;
 
 
 public class Aplikacja {
-    static ArrayList<Uzytkownik> uzytkownicy;
-    static ArrayList<Kategoria> kategorie;
-    static ArrayList<Model> modele;
+    static ArrayList<Uzytkownik> uzytkownicy = new ArrayList<>();
+    static ArrayList<Kategoria> kategorie = new ArrayList<>();
+    static ArrayList<Model> modele = new ArrayList<>();
 
 
     public static void main(String[] args) throws AppException {
@@ -77,6 +77,7 @@ public class Aplikacja {
         System.out.println(login);
         System.out.println(haslo);
         System.out.println(email);
+
         sprawdzDane();
 
         Uzytkownik user = new Uzytkownik(imie, nazwisko, login, haslo, email, TypUzytkownika.KLIENT);
@@ -93,18 +94,22 @@ public class Aplikacja {
     }
 
     public static void rejestracja(Uzytkownik user) throws AppException {
-        for (Uzytkownik x : uzytkownicy) {
-            if (x.getLogin().equals(user.getLogin())) {
-                throw new AppException("Login jest zajety");
-            } else if (x.getEmail().equals(user.getEmail())) {
-                throw new AppException("email jest juz zarejestrowany");
-            } else {
-                uzytkownicy.add(user);
+        if(uzytkownicy.size()>0) {
+            for (Uzytkownik x : uzytkownicy) {
+                if (x.getLogin().equals(user.getLogin())) {
+                    throw new AppException("Login jest zajety");
+                } else if (x.getEmail().equals(user.getEmail())) {
+                    throw new AppException("email jest juz zarejestrowany");
+                } else {
+                    uzytkownicy.add(user);
+                }
             }
-        }
+        }else
+            uzytkownicy.add(user);
     }
 
     public static void logowanie(String login_email, String haslo) throws AppException {
+        if(uzytkownicy.size() < 1) throw new AppException("Nie znaleziono użytkownika()brak użytkowników w bazie");
         for (Uzytkownik x : uzytkownicy) {
             if (x.getLogin().equals(login_email) || x.getEmail().equals(login_email)) {
                 if (!x.checkPassword(haslo)) {

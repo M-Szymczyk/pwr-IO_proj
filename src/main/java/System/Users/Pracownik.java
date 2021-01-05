@@ -14,8 +14,8 @@ import java.util.Scanner;
 public class Pracownik extends Uzytkownik {
 
     Pracownik(String imie, String nazwisko, String login, String haslo, String email) {
-        super();
-        setTypUzytkownika("pracownik");
+        super(imie, nazwisko, login, haslo, email);
+        this.typUzytkownika = TypUzytkownika.PRACOWNIK;
     }
 
     public void dodajNowyModel(String nazwa, Kategoria kat) throws AppException {

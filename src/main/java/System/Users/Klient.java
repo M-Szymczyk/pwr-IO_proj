@@ -66,7 +66,6 @@ public class Klient extends Uzytkownik {
                         Pracownik pracownik = (Pracownik) Aplikacja.getWolnyPracownik();
                         pracownik.analizujStanSprzetu(egz);//stan jest zmieniany w tej metodzie
                     } catch (Exception e) {
-
                         throw e;
                     }
                 }

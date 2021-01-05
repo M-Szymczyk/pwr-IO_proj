@@ -3,11 +3,11 @@ import  System.Aplikacja;
 import System.data.AppException;
 import System.data.Model;
 
-public class Kierownik extends Uzytkownik {
+public class Kierownik extends Pracownik {
 
 
     public Kierownik(String imie, String nazwisko, String login, String haslo, String email){
-        super();
+        super(imie, nazwisko, login, haslo, email);
         this.typUzytkownika = TypUzytkownika.KIEROWNIK;
     }
 

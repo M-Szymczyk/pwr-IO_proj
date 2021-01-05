@@ -63,7 +63,7 @@ public class Uzytkownik {
         }
     }
 
-    public Uzytkownik(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user){
+    Uzytkownik(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user){
         id = count.incrementAndGet();
         this.setImie(imie);
         this.setNazwisko(nazwisko);
@@ -72,6 +72,7 @@ public class Uzytkownik {
         this.setLogin(login);
         this.setTypUzytkownika(user);
     }
+
     Uzytkownik(String imie, String nazwisko, String login, String haslo, String email, String user){
         id = count.incrementAndGet();
         this.setImie(imie);
@@ -81,7 +82,17 @@ public class Uzytkownik {
         this.setLogin(login);
         this.setTypUzytkownika(user);
     }
-    public Uzytkownik(){}
+    Uzytkownik(String imie, String nazwisko, String login, String haslo, String email){
+        id = count.incrementAndGet();
+        this.setImie(imie);
+        this.setNazwisko(nazwisko);
+        this.setEmail(email);
+        this.haslo = haslo;
+        this.setLogin(login);
+    }
+
+
+    Uzytkownik(){}
 
 
     //chyba niepotrzebne, przynajmniej rejestracja
