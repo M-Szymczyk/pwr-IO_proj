@@ -87,6 +87,7 @@ public class Model {
         egzemplarze.add(egzemplarz);
     }
 
+
     /*Gettery i Settery\*/
 ///////////////////////////////////////////////////////////////////////////////////////////////
     public Integer getIlosDostepnychEgzemplarzy() {

@@ -172,7 +172,7 @@ public class Aplikacja {
         return modele;
     }
 
-    public static void dodajEgzemplarze(int ilosc, String nazwa) throws AppException {
+    public static void dodajEgzemplarze(int ilosc, String nazwa) throws Exception {
         Scanner sc = new Scanner(System.in);
         Model x = Uzytkownik.wyszukajModel(nazwa);
         if (x != null) {
