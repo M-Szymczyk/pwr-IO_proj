@@ -105,9 +105,19 @@ public class Uzytkownik {
      * @param nazwa nazwa szukanego modelu
      * @return referencje do modelu
      */
-    public Model wyszukajModel(String nazwa){
+    public static Model wyszukajModel(String nazwa){
         //todo czy takie wykorzystanie metody klasy aplikacja jast poprawne?
-        return Aplikacja.wyszukajModel(nazwa);
+        boolean znalezionoModel = false;
+        Model curr = null;
+
+        for (Model x : Aplikacja.getModele()) {
+            if (x.getNazwa().equals(nazwa)) {
+                znalezionoModel = true;
+                curr = x;
+            }
+        }
+        return curr;
+
     }
 
 }

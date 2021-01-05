@@ -1,6 +1,7 @@
 package System.data;
 import System.Aplikacja;
 
+import System.Users.Uzytkownik;
 import sun.util.calendar.BaseCalendar;
 
 import java.text.SimpleDateFormat;
@@ -58,7 +59,7 @@ public class Wypozyczenie {
             }
     }
     public Wypozyczenie(Integer id_wypozyczajacego, Date data_wypozyczenia, Date data_zwrotu, String nazwa,Integer ilosc) throws Exception {
-        Model model = Aplikacja.wyszukajModel(nazwa);
+        Model model = Uzytkownik.wyszukajModel(nazwa);
         new Wypozyczenie(id_wypozyczajacego, data_wypozyczenia, data_zwrotu, model, ilosc);
 
     }

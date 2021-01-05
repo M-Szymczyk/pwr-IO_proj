@@ -138,71 +138,67 @@ public class Aplikacja {
                 x.setNazwaModelu(newName);
                 x.setCenaZaDzienWypozyczenia(cenaZaDzien);
                 x.setCenaZaUszedzenia(cenaZaEgzemplarz);
-                for(Kategoria a: kategorie){
-                    if(a.getNazwaKategorii().equals(kategoria)){
+                for (Kategoria a : kategorie) {
+                    if (a.getNazwaKategorii().equals(kategoria)) {
                         x.setKategoria(a);
                         znalezionoKategorie = true;
                     }
                 }
             }
         }
-        if(znalezionoKategorie == false ){
+        if (znalezionoKategorie == false) {
             throw new AppException("Nie ma takiej kategorii");
         }
-        if(!znalezionoModel){
+        if (!znalezionoModel) {
             throw new AppException("Nie ma takiego modelu");
         }
     }
-    public static void edytujOpisModelu(String name, String opis){
+
+    public static void edytujOpisModelu(String name, String opis) {
 
     }
+
+    public static ArrayList<Model> getModele() {
+        return modele;
+    }
+
     public static void dodajEgzemplarze(int ilosc, String nazwa) throws AppException {
         Scanner sc = new Scanner(System.in);
-            Model x = wyszukajModel(nazwa);
-            if(x != null) {
-                for (int i = 0; i < ilosc; i++) {
-                    Egzemplarz egzemplarz = new Egzemplarz(StanSprzetu.DOSTEPNY, x);
-                    x.dodajEgzemplarz(egzemplarz);
-                }
-            }else{
-                System.out.println("Nie znaleziono modelu o podanej nazwie");
-                System.out.print("Chcesz stworzyć nowy model? 1.Tak/2.Nie");
-                int wybor = sc.nextInt();
-                switch (wybor){
-                    case 1:
-                        System.out.print("cena za dzien wypozyczenia: ");
-                        Double cenaZaDzien = sc.nextDouble();
-                        System.out.print("Cena za egzemplarz: ");
-                        Double cenaZaEgzemplarz = sc.nextDouble();
-                        System.out.print("Kategoria: ");
-                        String kategoria = sc.nextLine();
-                        Kategoria kat = new Kategoria(kategoria, "");
-                        Model model = new Model(nazwa, kat);
-                        dodajModel(model);
-                        for (int i = 0; i < ilosc; i++) {
-                            Egzemplarz egzemplarz = new Egzemplarz(StanSprzetu.DOSTEPNY, model);
-                            model.dodajEgzemplarz(egzemplarz);
-                        }
-                        break;
-                    case 2:
-                        return;
-                }
+        Model x = Uzytkownik.wyszukajModel(nazwa);
+        if (x != null) {
+            for (int i = 0; i < ilosc; i++) {
+                Egzemplarz egzemplarz = new Egzemplarz(StanSprzetu.DOSTEPNY, x);
+                x.dodajEgzemplarz(egzemplarz);
             }
-    }
-
-
-    public static Model wyszukajModel(String nazwa){
-        boolean znalezionoModel = false;
-        Model curr = null;
-        for(Model x: modele) {
-            if (x.getNazwa().equals(nazwa)) {
-                znalezionoModel = true;
-                curr = x;
+        } else {
+            System.out.println("Nie znaleziono modelu o podanej nazwie");
+            System.out.print("Chcesz stworzyć nowy model? 1.Tak/2.Nie");
+            int wybor = sc.nextInt();
+            switch (wybor) {
+                case 1:
+                    System.out.print("cena za dzien wypozyczenia: ");
+                    Double cenaZaDzien = sc.nextDouble();
+                    System.out.print("Cena za egzemplarz: ");
+                    Double cenaZaEgzemplarz = sc.nextDouble();
+                    System.out.print("Kategoria: ");
+                    String kategoria = sc.nextLine();
+                    Kategoria kat = new Kategoria(kategoria, "");
+                    Model model = new Model(nazwa, kat);
+                    dodajModel(model);
+                    for (int i = 0; i < ilosc; i++) {
+                        Egzemplarz egzemplarz = new Egzemplarz(StanSprzetu.DOSTEPNY, model);
+                        model.dodajEgzemplarz(egzemplarz);
+                    }
+                    break;
+                case 2:
+                    return;
             }
         }
-        return curr;
     }
-    public static void dodajKategorie(Kategoria k){
+
+
+
+    public static void dodajKategorie(Kategoria k) {
         kategorie.add(k);
     }
 
