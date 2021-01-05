@@ -13,34 +13,38 @@ public class Egzemplarz {
 
     /**
      * Konstruktor egzemplarza
+     *
      * @param stan_egzemplarza obecny stan egzemplarza
-     * @param model jaki jest model sprzetu
+     * @param model            jaki jest model sprzetu
      */
     public Egzemplarz(StanSprzetu stan_egzemplarza, Model model) {
-        ++ nr_seryjny_cnt;
+        ++nr_seryjny_cnt;
         this.stan_egzemplarza = stan_egzemplarza;
         this.numer_seryjny = String.valueOf(nr_seryjny_cnt);
-        if(this.numer_seryjny.length() < nrlen){
-            for(int i=0; i < nrlen-this.numer_seryjny.length(); i++){
+        if (this.numer_seryjny.length() < nrlen) {
+            for (int i = 0; i < nrlen - this.numer_seryjny.length(); i++) {
                 this.numer_seryjny = "0" + this.numer_seryjny;
             }
         }
         this.model = model;
     }
 
+
     /**
      * aktualizacja stanu sprzetu
-     * jezeli podany argument to null, nie zostanie zmieniony stan
+     *
      * @param stan_egzemplarza nowy stan
+     * @throws Exception jezeli podany argument to null
      */
     public void zmienStanSprzetu(StanSprzetu stan_egzemplarza) throws Exception {
-        if(stan_egzemplarza==null)
+        if (stan_egzemplarza == null)
             throw new Exception("Podano nulla");
-        this.stan_egzemplarza=stan_egzemplarza;
+        this.stan_egzemplarza = stan_egzemplarza;
     }
 
     /**
      * Zwraca obecny stan egzemplarza
+     *
      * @return obecny stan egzemplarza
      */
     public StanSprzetu getStan_egzemplarza() {

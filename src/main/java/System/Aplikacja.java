@@ -1,4 +1,5 @@
 package System;
+
 import System.Users.Klient;
 import System.Users.Uzytkownik;
 import System.Users.TypUzytkownika;
@@ -21,27 +22,30 @@ public class Aplikacja {
         start();
     }
 
-    private static void consoleClean(){
-        for(int i=0; i<10; i++){
+    private static void consoleClean() {
+        for (int i = 0; i < 10; i++) {
             System.out.println();
         }
     }
+
     private static void start() throws AppException {
         Scanner scan = new Scanner(System.in);
         System.out.println("1.Rejestracja");
         System.out.println("2.Logowanie");
         int choose = scan.nextInt();
 
-        switch (choose){
-            case 1: rejestracjaMenu();
+        switch (choose) {
+            case 1:
+                rejestracjaMenu();
                 break;
-            case 2: logowanieMenu();
-            break;
+            case 2:
+                logowanieMenu();
+                break;
             default:
-                    consoleClean();
-                    System.out.println("Menu start");
-                    start();
-                    break;
+                consoleClean();
+                System.out.println("Menu start");
+                start();
+                break;
         }
     }
 
@@ -54,6 +58,7 @@ public class Aplikacja {
 
         logowanie(login_email, haslo);
     }
+
     private static void rejestracjaMenu() throws AppException {
         Scanner scan = new Scanner(System.in);
         System.out.print("Imie: ");
@@ -78,32 +83,35 @@ public class Aplikacja {
         rejestracja(user);
 
     }
+
     public static void sprawdzDane() throws AppException {
         Scanner scan = new Scanner(System.in);
         System.out.println("\nPowtórzyć wpisywanie danych? 1.Tak/2.Nie");
         int wybor = scan.nextInt();
-        if(wybor == 1) rejestracjaMenu();
-        else if(wybor != 2) sprawdzDane();
+        if (wybor == 1) rejestracjaMenu();
+        else if (wybor != 2) sprawdzDane();
     }
+
     public static void rejestracja(Uzytkownik user) throws AppException {
-        for(Uzytkownik x: uzytkownicy){
-            if(x.getLogin().equals(user.getLogin())){
+        for (Uzytkownik x : uzytkownicy) {
+            if (x.getLogin().equals(user.getLogin())) {
                 throw new AppException("Login jest zajety");
-            }else if (x.getEmail().equals(user.getEmail())){
+            } else if (x.getEmail().equals(user.getEmail())) {
                 throw new AppException("email jest juz zarejestrowany");
-            }else{
+            } else {
                 uzytkownicy.add(user);
             }
         }
     }
-    public static void logowanie(String login_email, String haslo)throws AppException{
-        for(Uzytkownik x: uzytkownicy){
-            if(x.getLogin().equals(login_email) || x.getEmail().equals(login_email)){
-                if(!x.checkPassword(haslo)){
+
+    public static void logowanie(String login_email, String haslo) throws AppException {
+        for (Uzytkownik x : uzytkownicy) {
+            if (x.getLogin().equals(login_email) || x.getEmail().equals(login_email)) {
+                if (!x.checkPassword(haslo)) {
                     throw new AppException("Niepoprawne dane");
-                }else{
+                } else {
                     TypUzytkownika typ = x.getTypUzytkownika();
-                    switch(typ){
+                    switch (typ) {
                         case KLIENT:
                             //klientMenu();
                             break;
@@ -121,19 +129,21 @@ public class Aplikacja {
             }
         }
     }
-    public static void dodajModel(Model model) throws AppException{
-        for(Model x: modele){
-            if(model.getNazwa().equals(x.getNazwa())) {
+
+    public static void dodajModel(Model model) throws AppException {
+        for (Model x : modele) {
+            if (model.getNazwa().equals(x.getNazwa())) {
                 throw new AppException("Model juz istnieje");
             }
         }
         modele.add(model);
     }
-    public static void edytujModel(String oldName, String newName, double cenaZaDzien, double cenaZaEgzemplarz, String kategoria)throws AppException{
+
+    public static void edytujModel(String oldName, String newName, double cenaZaDzien, double cenaZaEgzemplarz, String kategoria) throws AppException {
         boolean znalezionoKategorie = false;
         boolean znalezionoModel = false;
-        for(Model x: modele){
-            if(x.getNazwa().equals(oldName)){
+        for (Model x : modele) {
+            if (x.getNazwa().equals(oldName)) {
                 znalezionoModel = true;
                 x.setNazwaModelu(newName);
                 x.setCenaZaDzienWypozyczenia(cenaZaDzien);
@@ -196,7 +206,20 @@ public class Aplikacja {
         }
     }
 
+    /**
+     * @return Metoda zwraca Pracownika
+     * @throws Exception jezeli brak pracownikow
+     */
+    public static Uzytkownik getWolnyPracownik() throws Exception {
+        //todo prawdopodobnie bedzie trzeba poprawic to kiedys
+        int iloscPracownikow = 0;
+        for (Uzytkownik uz : uzytkownicy) {
+            if (uz.getTypUzytkownika().equals(TypUzytkownika.PRACOWNIK))
+                return uz;
+        }
+        throw new Exception("Brak Pracownikow lub kierownikow");
 
+    }
 
     public static void dodajKategorie(Kategoria k) {
         kategorie.add(k);

@@ -1,8 +1,11 @@
 package System.Users;
 
+import System.data.Egzemplarz;
 import System.data.Model;
+import System.data.StanSprzetu;
 import System.data.Wypozyczenie;
 import System.Aplikacja;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,55 +19,82 @@ public class Klient extends Uzytkownik {
 
     /**
      * Metoda wywowywana jezeli jeden z egzemplarzy wypozyczenia zostal zniszczony/zgubiony
-     * @param w w ktorym wypozyczeniu zgubiono sprzet
+     *
+     * @param w     w ktorym wypozyczeniu zgubiono sprzet
      * @param ilosc ilosc ile przedmiotow z wypozyczenia zgubiono
      */
-    public void zglosZgubienieZniszczenia(Wypozyczenie w, Integer ilosc){
-        setNaleznoscDoZaplaty(getNaleznoscDoZaplaty()+w.getEgzemplarze().get(0).getModel().getCenaZaUszedzenia()*ilosc);
+    public void zglosZgubienieZniszczenia(Wypozyczenie w, Integer ilosc) {
+        setNaleznoscDoZaplaty(getNaleznoscDoZaplaty() + w.getEgzemplarze().get(0).getModel().getCenaZaUszedzenia() * ilosc);
     }
 
     /**
      * Moetoda wykorzystywana do przedluzania wypozyczenia
-     * @param date nowa data wypozyczenia
+     *
+     * @param date         nowa data wypozyczenia
      * @param wypozyczenie ktore wypozyczenie przedluza
      * @throws Exception jezeli nie ma dostepnych egzemplarzy do wypozyczenia
      */
-    public void wydluzWypozyczenie(Date date,Wypozyczenie wypozyczenie) throws Exception {
-        if(wypozyczenie.getEgzemplarze().get(0).getModel().getIlosDostepnychEgzemplarzy()<
-                 wypozyczenie.getEgzemplarze().size())
+    public void wydluzWypozyczenie(Date date, Wypozyczenie wypozyczenie) throws Exception {
+        if (wypozyczenie.getEgzemplarze().get(0).getModel().getIlosDostepnychEgzemplarzy() <
+                wypozyczenie.getEgzemplarze().size())
             throw new Exception("Brak dsotepnych egzemplarzy");
         else
-            setNaleznoscDoZaplaty(wypozyczenie.getEgzemplarze().get(0).getModel().getCenaZaDzienWypozyczenia()*
-                (date.getTime()-wypozyczenie.getData_zwrotu().getTime()));
+            setNaleznoscDoZaplaty(wypozyczenie.getEgzemplarze().get(0).getModel().getCenaZaDzienWypozyczenia() *
+                    (date.getTime() - wypozyczenie.getData_zwrotu().getTime()));
+    }
+
+    /**
+     * Metoda ktora zwraca sprzet do wypozyczalni i konczy wypozyczenie
+     *
+     * @param wypozyczenie wypozyczenie ktore jest zwracane
+     * @throws Exception jezeli nie jest dostpeny zaden pracownik
+     */
+    public void zwrocSprzet(Wypozyczenie wypozyczenie){
+        for (Wypozyczenie w : wypozyczenia) {
+            if (w.equals(wypozyczenie)) {
+                for (Egzemplarz egz : w.getEgzemplarze()) {
+                    try {
+                        Pracownik pracownik = (Pracownik) Aplikacja.getWolnyPracownik();
+                        pracownik.analizujStanSprzetu(egz);//stan jest zmieniany w tej metodzie
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                w = null;
+                return;
+            }
+        }
     }
 
     /**
      * Metoda wypozycza sprzet
-     * @param model jaki model sprzetu wypozyczasz
-     * @param dateWyp data wypozyczenia
+     *
+     * @param model     jaki model sprzetu wypozyczasz
+     * @param dateWyp   data wypozyczenia
      * @param dateZwrot data zwrotu
-     * @param ilosc ilosc wypozyczanego sprzetu
+     * @param ilosc     ilosc wypozyczanego sprzetu
      * @throws Exception jezeli nie ssa dostepne zadne sprzety
      */
-    public void wypozyczSprzet(Model model,Date dateWyp,Date dateZwrot,Integer ilosc) throws Exception {
-        if(sprawdzDostepnosc(model))
-            dodajWypożyczenie(new Wypozyczenie(idKlienta,dateWyp,dateZwrot,model,ilosc));
-        else
-            throw new Exception("Brak dostępnych egzemplarzy");
-    }
-    public void wypozyczSprzet(String nazwa,Date dateWyp,Date dateZwrot,Integer ilosc) throws Exception {
-        if(sprawdzDostepnosc(nazwa))
-            dodajWypożyczenie(new Wypozyczenie(idKlienta,dateWyp,dateZwrot,nazwa,ilosc));
+    public void wypozyczSprzet(Model model, Date dateWyp, Date dateZwrot, Integer ilosc) throws Exception {
+        if (sprawdzDostepnosc(model))
+            dodajWypożyczenie(new Wypozyczenie(idKlienta, dateWyp, dateZwrot, model, ilosc));
         else
             throw new Exception("Brak dostępnych egzemplarzy");
     }
 
-    public boolean sprawdzDostepnosc(Model model){
-            return (0<model.getIlosDostepnychEgzemplarzy());
+    public void wypozyczSprzet(String nazwa, Date dateWyp, Date dateZwrot, Integer ilosc) throws Exception {
+        if (sprawdzDostepnosc(nazwa))
+            dodajWypożyczenie(new Wypozyczenie(idKlienta, dateWyp, dateZwrot, nazwa, ilosc));
+        else
+            throw new Exception("Brak dostępnych egzemplarzy");
+    }
+
+    public boolean sprawdzDostepnosc(Model model) {
+        return (0 < model.getIlosDostepnychEgzemplarzy());
 
     }
 
-    public boolean sprawdzDostepnosc(String nazwa){
+    public boolean sprawdzDostepnosc(String nazwa) {
         Model model = wyszukajModel(nazwa);
         return sprawdzDostepnosc(model);
     }
@@ -72,19 +102,20 @@ public class Klient extends Uzytkownik {
 
     /**
      * Dodaje wypozyczenie do arrayListy
+     *
      * @param w dodawne wypozyczenie
      */
-    public void dodajWypożyczenie(Wypozyczenie w){
+    public void dodajWypożyczenie(Wypozyczenie w) {
         wypozyczenia.add(w);
     }
 
-    public void przeglądajWypozyczenia(){
+    public void przeglądajWypozyczenia() {
         int iloscWyp = getiloscWypozyczen();
         int i = 1;
 
         System.out.println("Ilość aktywnych wypożyczeń: " + iloscWyp);
 
-        for(Wypozyczenie x: wypozyczenia) {
+        for (Wypozyczenie x : wypozyczenia) {
             System.out.println("Wypożyczenie " + i + ":");
             System.out.println("\t Data wypożyczenia: \t" + x.getData_wypozyczenia());
             System.out.println("\t Data zwrotu: \t\t" + x.getData_zwrotu());
@@ -98,19 +129,20 @@ public class Klient extends Uzytkownik {
 
     /**
      * Konstruktor
-     * @param imie imie klienta
-     * @param nazwisko nazwisko klienta
-     * @param login login klienta
-     * @param haslo haslo klienta
-     * @param email email kleinta
-     * @param user typ uzytkownika//todo na pewno to powinoo byc tez pobierane
+     *
+     * @param imie      imie klienta
+     * @param nazwisko  nazwisko klienta
+     * @param login     login klienta
+     * @param haslo     haslo klienta
+     * @param email     email kleinta
+     * @param user      typ uzytkownika//todo na pewno to powinoo byc tez pobierane
      * @param idKlienta id klienta //przydal by sie kostruktor z jakims przydzieleaniem id klienta
      */
     public Klient(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user, Integer idKlienta) {
         super(imie, nazwisko, login, haslo, email, user);
         this.idKlienta = idKlienta;
-        naleznoscDoZaplaty=0.0;
-        wypozyczenia=new ArrayList<>();
+        naleznoscDoZaplaty = 0.0;
+        wypozyczenia = new ArrayList<>();
     }
 
     ///////////////////////////// Gettery i settery ////////////////////////
@@ -126,7 +158,9 @@ public class Klient extends Uzytkownik {
         return wypozyczenia.get(id);
     }
 
-    public Integer getiloscWypozyczen(){return  wypozyczenia.size();}
+    public Integer getiloscWypozyczen() {
+        return wypozyczenia.size();
+    }
 
     public Integer getIdKlienta() {
         return idKlienta;
