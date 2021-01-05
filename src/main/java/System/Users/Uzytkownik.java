@@ -105,8 +105,7 @@ public class Uzytkownik {
      * @param nazwa nazwa szukanego modelu
      * @return referencje do modelu
      */
-    public static Model wyszukajModel(String nazwa){
-        //todo czy takie wykorzystanie metody klasy aplikacja jast poprawne?
+    public static Model wyszukajModel(String nazwa) throws Exception {
         boolean znalezionoModel = false;
         Model curr = null;
 
@@ -116,6 +115,9 @@ public class Uzytkownik {
                 curr = x;
             }
         }
+
+        //wyjątek w przypadku nieznalezienia
+        if(curr == null) throw new Exception("Nie znaleziono modelu");
         return curr;
 
     }

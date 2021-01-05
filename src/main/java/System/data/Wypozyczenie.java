@@ -93,6 +93,9 @@ public class Wypozyczenie {
         return egzemplarze;
     }
 
+    public void addToEgzemplarze(Egzemplarz e){
+        this.egzemplarze.add(e);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
