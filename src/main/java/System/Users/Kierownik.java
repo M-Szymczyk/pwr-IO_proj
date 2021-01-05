@@ -16,7 +16,7 @@ public class Kierownik extends Uzytkownik {
         Aplikacja.rejestracja(user);
     }
 
-    private void zakupSprzet(int ilosc, String nazwa) throws AppException {
+    private void zakupSprzet(int ilosc, String nazwa) throws Exception {
         Aplikacja.dodajEgzemplarze(ilosc, nazwa);
     }
 }

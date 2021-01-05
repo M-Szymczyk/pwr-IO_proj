@@ -172,39 +172,50 @@ public class Aplikacja {
         return modele;
     }
 
-    public static void dodajEgzemplarze(int ilosc, String nazwa) throws Exception {
+    public static void dodajEgzemplarze(int ilosc, String nazwa) {
         Scanner sc = new Scanner(System.in);
-        Model x = Uzytkownik.wyszukajModel(nazwa);
-        if (x != null) {
+        try {
+            Model x = Uzytkownik.wyszukajModel(nazwa);
             for (int i = 0; i < ilosc; i++) {
                 Egzemplarz egzemplarz = new Egzemplarz(StanSprzetu.DOSTEPNY, x);
                 x.dodajEgzemplarz(egzemplarz);
             }
-        } else {
+        } catch (Exception e) {
             System.out.println("Nie znaleziono modelu o podanej nazwie");
             System.out.print("Chcesz stworzyć nowy model? 1.Tak/2.Nie");
             int wybor = sc.nextInt();
             switch (wybor) {
                 case 1:
-                    System.out.print("cena za dzien wypozyczenia: ");
-                    Double cenaZaDzien = sc.nextDouble();
-                    System.out.print("Cena za egzemplarz: ");
-                    Double cenaZaEgzemplarz = sc.nextDouble();
-                    System.out.print("Kategoria: ");
-                    String kategoria = sc.nextLine();
-                    Kategoria kat = new Kategoria(kategoria, "");
-                    Model model = new Model(nazwa, kat);
-                    dodajModel(model);
-                    for (int i = 0; i < ilosc; i++) {
-                        Egzemplarz egzemplarz = new Egzemplarz(StanSprzetu.DOSTEPNY, model);
-                        model.dodajEgzemplarz(egzemplarz);
-                    }
+                    boolean warPetli = false;
+                    do {
+                        System.out.print("cena za dzien wypozyczenia: ");
+                        Double cenaZaDzien = sc.nextDouble();
+                        System.out.print("Cena za egzemplarz: ");
+                        Double cenaZaEgzemplarz = sc.nextDouble();
+                        System.out.print("Kategoria: ");
+                        String kategoria = sc.nextLine();
+                        Kategoria kat = new Kategoria(kategoria, "");
+                        Model model = new Model(nazwa, kat);
+                        try {
+                            dodajModel(model);
+                            warPetli = false;
+                        } catch (AppException appException) {
+                            appException.printStackTrace();
+                            warPetli = true;
+                            System.out.println("Model o podanej nazwie nie istnieje. Sprubuj jeszcze raz");
+                        }
+                        for (int i = 0; i < ilosc; i++) {
+                            Egzemplarz egzemplarz = new Egzemplarz(StanSprzetu.DOSTEPNY, model);
+                            model.dodajEgzemplarz(egzemplarz);
+                        }
+                    } while (warPetli);
                     break;
                 case 2:
                     return;
             }
         }
     }
+
 
     /**
      * @return Metoda zwraca Pracownika
