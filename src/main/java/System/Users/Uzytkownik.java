@@ -63,7 +63,7 @@ public class Uzytkownik {
         }
     }
 
-    Uzytkownik(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user){
+    public Uzytkownik(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user){
         id = count.incrementAndGet();
         this.setImie(imie);
         this.setNazwisko(nazwisko);
@@ -106,8 +106,7 @@ public class Uzytkownik {
 //    }
 
     public boolean checkPassword(String haslo){
-        if(this.haslo.equals(haslo)) return true;
-        return false;
+        return this.haslo.equals(haslo);
     }
 
     /**
@@ -117,12 +116,12 @@ public class Uzytkownik {
      * @return referencje do modelu
      */
     public static Model wyszukajModel(String nazwa) throws Exception {
-        boolean znalezionoModel = false;
+        //boolean znalezionoModel = false;
         Model curr = null;
 
         for (Model x : Aplikacja.getModele()) {
             if (x.getNazwa().equals(nazwa)) {
-                znalezionoModel = true;
+                //znalezionoModel = true;
                 curr = x;
             }
         }

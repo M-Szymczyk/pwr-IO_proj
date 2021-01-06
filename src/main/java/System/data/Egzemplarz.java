@@ -40,6 +40,11 @@ public class Egzemplarz {
         if (stan_egzemplarza == null)
             throw new Exception("Podano nulla");
         this.stan_egzemplarza = stan_egzemplarza;
+        if (this.stan_egzemplarza.equals(StanSprzetu.NIEDOSTEPNY))
+            model.setIlosDostepnychEgzemplarzy(model.getIlosDostepnychEgzemplarzy() - 1);
+        else if (this.stan_egzemplarza.equals(StanSprzetu.DOSTEPNY))
+            model.setIlosDostepnychEgzemplarzy(model.getIlosDostepnychEgzemplarzy() + 1);
+
     }
 
     /**
