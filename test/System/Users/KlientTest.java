@@ -37,23 +37,23 @@ public class KlientTest {
         assertNotEquals("Test czy oplata zostala zwiekszona",kasa,klient.getNaleznoscDoZaplaty());
     }
 
-    /**
-     *  test w przypadku gdy podano zbyt duza liczbe uszkodzonego sprzetu
-     */
-    @Test(expected = Exception.class)
-    public void zglosZgubienieZniszczenia1() throws Exception {
-        double kasa=klient.getNaleznoscDoZaplaty();
-        klient.zglosZgubienieZniszczenia(wypozyczenie,100);
-
-    }
-    /**
-     *  test w przypadku gdy podao zbyt małą liczbe uszkodzonego sprzetu
-     */
-    @Test(expected = Exception.class)
-    public void zglosZgubienieZniszczenia2() throws Exception {
-        double kasa=klient.getNaleznoscDoZaplaty();
-        klient.zglosZgubienieZniszczenia(wypozyczenie,-1);
-    }
+//    /**
+//     *  test w przypadku gdy podano zbyt duza liczbe uszkodzonego sprzetu
+//     */
+//    @Test(expected = Exception.class)
+//    public void zglosZgubienieZniszczenia1() throws Exception {
+//        double kasa=klient.getNaleznoscDoZaplaty();
+//        klient.zglosZgubienieZniszczenia(wypozyczenie,100);
+//
+//    }
+//    /**
+//     *  test w przypadku gdy podao zbyt małą liczbe uszkodzonego sprzetu
+//     */
+//    @Test(expected = Exception.class)
+//    public void zglosZgubienieZniszczenia2() throws Exception {
+//        double kasa=klient.getNaleznoscDoZaplaty();
+//        klient.zglosZgubienieZniszczenia(wypozyczenie,-1);
+//    }
 
     @Test
     public void wydluzWypozyczenie() throws Exception {
@@ -64,6 +64,7 @@ public class KlientTest {
 
     @Test
     public void wypozyczSprzet() throws Exception {
+       //setUp();
         Integer iloscWypozyczen= klient.getiloscWypozyczen();
         klient.wypozyczSprzet(model, new Date(1), new Date(15), 5);
         //System.out.println(klient.getWypozyczenie(klient.getiloscWypozyczen()-1).equals(wypozyczenie));

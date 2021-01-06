@@ -55,7 +55,7 @@ public class Wypozyczenie {
         this.egzemplarze = new ArrayList<>();
         this.koszt_wypozyczenia = (data_zwrotu.getTime() - data_wypozyczenia.getTime()) * model.getCenaZaDzienWypozyczenia();
         if (model.getIlosDostepnychEgzemplarzy() < ilosc)
-            throw new Exception("Brak dostepnych egzemplarzy");
+            throw new Exception("Brak dostepnych egzemplarzy. Dostepnych egzemplarzy: "+model.getIlosDostepnychEgzemplarzy()+",a wypozycza sie: "+ ilosc);
         int i = 0;
         int cnt = 0;
         Egzemplarz e;

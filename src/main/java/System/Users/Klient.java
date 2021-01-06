@@ -68,7 +68,8 @@ public class Klient extends Uzytkownik {
 
         if (wypozyczenie.getEgzemplarze().get(0).getModel().getIlosDostepnychEgzemplarzy() <
                wypozyczenie.getEgzemplarze().size())
-            throw new Exception("Brak dsotepnych egzemplarzy");
+            throw new Exception("Brak dostepnych egzemplarzy. Dostepnych egzemplarzy: "
+                    +wypozyczenie.getEgzemplarze().get(0).getModel().getIlosDostepnychEgzemplarzy()+",a wypozycza sie: "+ wypozyczenie.getEgzemplarze().size());
         else {
             //naliczenie opłaty
             setNaleznoscDoZaplaty(wypozyczenie.getEgzemplarze().get(0).getModel().getCenaZaDzienWypozyczenia() *
@@ -88,13 +89,9 @@ public class Klient extends Uzytkownik {
         for (Wypozyczenie w : wypozyczenia) {
             if (w.equals(wypozyczenie)) {
                 for (Egzemplarz egz : w.getEgzemplarze()) {
-                    try {
-                        //analiza stanu sprzętu
-                        Pracownik pracownik = (Pracownik) Aplikacja.getWolnyPracownik();
-                        pracownik.analizujStanSprzetu(egz);//stan jest zmieniany w tej metodzie
-                    } catch (Exception e) {
-                        throw e;
-                    }
+                    //analiza stanu sprzętu
+                    Pracownik pracownik = (Pracownik) Aplikacja.getWolnyPracownik();
+                    pracownik.analizujStanSprzetu(egz);//stan jest zmieniany w tej metodzie
                 }
                 wypozyczenia.remove(w);
                 return;
@@ -140,11 +137,11 @@ public class Klient extends Uzytkownik {
      *
      * @param w dodawne wypozyczenie
      */
-    public void dodajWypożyczenie(Wypozyczenie w) {
+    public void dodajWypozyczenie(Wypozyczenie w) {
         wypozyczenia.add(w);
     }
 
-    public void przeglądajWypozyczenia() {
+    public void przegladajWypozyczenia() {
         int iloscWyp = getiloscWypozyczen();
         int i = 1;
 
