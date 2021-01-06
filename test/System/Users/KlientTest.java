@@ -21,7 +21,7 @@ public class KlientTest {
         model.setCenaZaUszedzenia(10.0);
         model.setCenaZaDzienWypozyczenia(100.0);
         ArrayList<Egzemplarz> egzemplarzArrayList=new ArrayList<>();
-        for(int i=0;i<5;i++)
+        for(int i=0;i<15;i++)
             egzemplarzArrayList.add(new Egzemplarz(StanSprzetu.DOSTEPNY,model));
         model.setEgzemplarze(egzemplarzArrayList);
 
