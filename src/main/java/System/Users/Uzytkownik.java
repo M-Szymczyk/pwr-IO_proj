@@ -3,6 +3,7 @@ import System.Aplikacja;
 import System.data.AppException;
 import System.data.Model;
 
+import javax.swing.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -126,8 +127,8 @@ public class Uzytkownik {
             }
         }
 
-        //wyjątek w przypadku nieznalezienia
-        if(curr == null) throw new Exception("Nie znaleziono modelu");
+        // w przypadku nieznalezienia
+        if(curr == null) JOptionPane.showMessageDialog(null, "Nie znaleziono modelu o podanej nazwie");
         return curr;
 
     }

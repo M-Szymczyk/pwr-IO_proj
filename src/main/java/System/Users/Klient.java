@@ -51,7 +51,7 @@ public class Klient extends Uzytkownik {
      * @param w     w ktorym wypozyczeniu zgubiono sprzet
      * @param ilosc ilosc ile przedmiotow z wypozyczenia zgubiono
      */
-    private void zglosZgubienieZniszczenia(Wypozyczenie w, Integer ilosc) throws Exception {
+    void zglosZgubienieZniszczenia(Wypozyczenie w, Integer ilosc) throws Exception {
         if(w == null) throw new Exception("Podano Nulla");
         setNaleznoscDoZaplaty(getNaleznoscDoZaplaty() + w.getEgzemplarze().get(0).getModel().getCenaZaUszedzenia() * ilosc);
     }
@@ -129,9 +129,9 @@ public class Klient extends Uzytkownik {
             }
             //przypisz klientowi wypożyczenie
             this.wypozyczenia.add(wyp);
-        } else
-            throw new Exception("Brak dostępnych egzemplarzy");
+        } JOptionPane.showMessageDialog(null,"Brak dostępnych egzemplarzy");
     }
+
 
     public void wypozyczSprzet(String nazwa, Date dateWyp, Date dateZwrot, Integer ilosc) throws Exception {
         //wyszukaj model z podanymi atrybutami

@@ -31,7 +31,7 @@ public class KlientTest {
     }
 
     @Test
-    public void zglosZgubienieZniszczenia() {
+    public void zglosZgubienieZniszczenia() throws Exception {
         double kasa=klient.getNaleznoscDoZaplaty();
         klient.zglosZgubienieZniszczenia(wypozyczenie,1);
         assertNotEquals("Test czy oplata zostala zwiekszona",kasa,klient.getNaleznoscDoZaplaty());
@@ -41,7 +41,7 @@ public class KlientTest {
      *  test w przypadku gdy podano zbyt duza liczbe uszkodzonego sprzetu
      */
     @Test(expected = Exception.class)
-    public void zglosZgubienieZniszczenia1() {
+    public void zglosZgubienieZniszczenia1() throws Exception {
         double kasa=klient.getNaleznoscDoZaplaty();
         klient.zglosZgubienieZniszczenia(wypozyczenie,100);
 
@@ -50,7 +50,7 @@ public class KlientTest {
      *  test w przypadku gdy podao zbyt małą liczbe uszkodzonego sprzetu
      */
     @Test(expected = Exception.class)
-    public void zglosZgubienieZniszczenia2() {
+    public void zglosZgubienieZniszczenia2() throws Exception {
         double kasa=klient.getNaleznoscDoZaplaty();
         klient.zglosZgubienieZniszczenia(wypozyczenie,-1);
     }
