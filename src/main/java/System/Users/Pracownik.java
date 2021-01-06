@@ -33,11 +33,11 @@ public class Pracownik extends Uzytkownik {
     public void analizujStanSprzetu(Egzemplarz e) throws Exception {
         Scanner scan = new Scanner(System.in);
         System.out.println("Czy sprzet jest uszkodzony? T/N");
-        int wybor = scan.nextInt();
+        String wybor = scan.nextLine();
         // porównuję kody znaków ASCII
-        if (wybor == 'T' || wybor == 't') {
+        if (wybor.equals("T") || wybor.equals("t")) {
             e.zmienStanSprzetu(StanSprzetu.USZKODZONY);
-        } else if (wybor == 'N' || wybor == 'n') {
+        } else if (wybor.equals("N") || wybor.equals("n")) {
             e.zmienStanSprzetu(StanSprzetu.DOSTEPNY);
         }
     }
