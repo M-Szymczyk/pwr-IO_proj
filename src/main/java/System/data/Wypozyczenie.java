@@ -68,7 +68,6 @@ public class Wypozyczenie {
             }
             i++;
         }
-        model.setIlosDostepnychEgzemplarzy(model.getIlosDostepnychEgzemplarzy() - ilosc);
 
     }
 
