@@ -84,6 +84,7 @@ public class Model {
      * @param egzemplarz dodawny egzemplarz
      */
     public void dodajEgzemplarz(Egzemplarz egzemplarz){
+        this.ilosDostepnychEgzemplarzy++;
         egzemplarze.add(egzemplarz);
     }
 

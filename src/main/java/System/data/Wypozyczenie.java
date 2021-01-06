@@ -59,7 +59,7 @@ public class Wypozyczenie {
         int i = 0;
         int cnt = 0;
         Egzemplarz e;
-        while (cnt < ilosc-1) {
+        while (cnt < ilosc) {
             e = model.getEgzemplarze().get(i);
             if (e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY)) {
                 this.addToEgzemplarze(e);

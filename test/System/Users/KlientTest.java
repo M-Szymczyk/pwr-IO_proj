@@ -17,13 +17,14 @@ public class KlientTest {
     @Before
     public void setUp() throws Exception {
         Kategoria kategoria=new Kategoria("testKat","");
-        model=new Model("tsetModel",kategoria);
+        model=new Model("testModel",kategoria);
         model.setCenaZaUszedzenia(10.0);
         model.setCenaZaDzienWypozyczenia(100.0);
         ArrayList<Egzemplarz> egzemplarzArrayList=new ArrayList<>();
-        for(int i=0;i<15;i++)
+        for(int i=0;i<14;i++)
             egzemplarzArrayList.add(new Egzemplarz(StanSprzetu.DOSTEPNY,model));
         model.setEgzemplarze(egzemplarzArrayList);
+        model.setIlosDostepnychEgzemplarzy(egzemplarzArrayList.size());
 
         klient=new Klient("mikolaj","ktos","admin","admin","admin@admin.pl", TypUzytkownika.KLIENT,1);
 
@@ -37,23 +38,22 @@ public class KlientTest {
         assertNotEquals("Test czy oplata zostala zwiekszona",kasa,klient.getNaleznoscDoZaplaty());
     }
 
-//    /**
-//     *  test w przypadku gdy podano zbyt duza liczbe uszkodzonego sprzetu
-//     */
-//    @Test(expected = Exception.class)
-//    public void zglosZgubienieZniszczenia1() throws Exception {
-//        double kasa=klient.getNaleznoscDoZaplaty();
-//        klient.zglosZgubienieZniszczenia(wypozyczenie,100);
-//
-//    }
-//    /**
-//     *  test w przypadku gdy podao zbyt małą liczbe uszkodzonego sprzetu
-//     */
-//    @Test(expected = Exception.class)
-//    public void zglosZgubienieZniszczenia2() throws Exception {
-//        double kasa=klient.getNaleznoscDoZaplaty();
-//        klient.zglosZgubienieZniszczenia(wypozyczenie,-1);
-//    }
+    /**
+     *  test w przypadku gdy podano zbyt duza liczbe uszkodzonego sprzetu
+     */
+    @Test(expected = Exception.class)
+    public void zglosZgubienieZniszczenia1() throws Exception {
+        double kasa=klient.getNaleznoscDoZaplaty();
+        klient.zglosZgubienieZniszczenia(wypozyczenie,100);
+    }
+    /**
+     *  test w przypadku gdy podao zbyt małą liczbe uszkodzonego sprzetu
+     */
+    @Test(expected = Exception.class)
+    public void zglosZgubienieZniszczenia2() throws Exception {
+        double kasa=klient.getNaleznoscDoZaplaty();
+        klient.zglosZgubienieZniszczenia(wypozyczenie,-1);
+    }
 
     @Test
     public void wydluzWypozyczenie() throws Exception {
@@ -64,7 +64,6 @@ public class KlientTest {
 
     @Test
     public void wypozyczSprzet() throws Exception {
-       //setUp();
         Integer iloscWypozyczen= klient.getiloscWypozyczen();
         klient.wypozyczSprzet(model, new Date(1), new Date(15), 5);
         //System.out.println(klient.getWypozyczenie(klient.getiloscWypozyczen()-1).equals(wypozyczenie));
