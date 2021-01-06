@@ -24,20 +24,19 @@ public class Klient extends Uzytkownik {
         for (Wypozyczenie x : wypozyczenia) {
             if (model.getNazwa().equals(nazwa)) {
                 znaleziono = true;
-                if(x.getEgzemplarze().size() < ilosc) dataFail = true;
+                if (x.getEgzemplarze().size() < ilosc) dataFail = true;
                 wyp = x;
                 break;
             }
         }
 
-        if(!znaleziono){
+        if (!znaleziono) {
             throw new AppException("Nie znaleziono wypożyczenia podanego modelu");
 
-        }
-        else if(dataFail){
+        } else if (dataFail) {
             throw new AppException("Podana ilość jest większa niż ilość wypożyczonych egzemplarzy");
 
-        }else
+        } else
             zglosZgubienieZniszczenia(wyp, ilosc);
     }
 
@@ -48,7 +47,7 @@ public class Klient extends Uzytkownik {
      * @param ilosc ilosc ile przedmiotow z wypozyczenia zgubiono
      */
     void zglosZgubienieZniszczenia(Wypozyczenie w, Integer ilosc) throws Exception {
-        if(w == null) throw new Exception("Podano Nulla");
+        if (w == null) throw new Exception("Podano Nulla");
         setNaleznoscDoZaplaty(getNaleznoscDoZaplaty() + w.getEgzemplarze().get(0).getModel().getCenaZaUszedzenia() * ilosc);
     }
 
@@ -63,9 +62,9 @@ public class Klient extends Uzytkownik {
     void wydluzWypozyczenie(Date date, Wypozyczenie wypozyczenie) throws Exception {
 
         if (wypozyczenie.getEgzemplarze().get(0).getModel().getIlosDostepnychEgzemplarzy() <
-               wypozyczenie.getEgzemplarze().size())
+                wypozyczenie.getEgzemplarze().size())
             throw new Exception("Brak dostepnych egzemplarzy. Dostepnych egzemplarzy: "
-                    +wypozyczenie.getEgzemplarze().get(0).getModel().getIlosDostepnychEgzemplarzy()+",a wypozycza sie: "+ wypozyczenie.getEgzemplarze().size());
+                    + wypozyczenie.getEgzemplarze().get(0).getModel().getIlosDostepnychEgzemplarzy() + ",a wypozycza sie: " + wypozyczenie.getEgzemplarze().size());
         else {
             //naliczenie opłaty
             setNaleznoscDoZaplaty(wypozyczenie.getEgzemplarze().get(0).getModel().getCenaZaDzienWypozyczenia() *
@@ -106,13 +105,12 @@ public class Klient extends Uzytkownik {
      */
     void wypozyczSprzet(Model model, Date dateWyp, Date dateZwrot, Integer ilosc) throws Exception {
 
-            Wypozyczenie wyp = new Wypozyczenie(idKlienta, dateWyp, dateZwrot, model, ilosc);
-            //przypisz klientowi wypożyczenie
-            this.wypozyczenia.add(wyp);
-            //dolicz należność do zapłaty do rachunku klienta
-            this.naleznoscDoZaplaty += wyp.getKoszt_wypozyczenia();
-        }
-
+        Wypozyczenie wyp = new Wypozyczenie(idKlienta, dateWyp, dateZwrot, model, ilosc);
+        //przypisz klientowi wypożyczenie
+        this.wypozyczenia.add(wyp);
+        //dolicz należność do zapłaty do rachunku klienta
+        this.naleznoscDoZaplaty += wyp.getKoszt_wypozyczenia();
+    }
 
     public void wypozyczSprzet(String nazwa, Date dateWyp, Date dateZwrot, Integer ilosc) throws Exception {
         //wyszukaj model z podanymi atrybutami
@@ -126,7 +124,6 @@ public class Klient extends Uzytkownik {
     public boolean sprawdzDostepnosc(String nazwa) throws Exception {
         return sprawdzDostepnosc(wyszukajModel(nazwa));
     }
-
 
     /**
      * Dodaje wypozyczenie do arrayListy

@@ -14,59 +14,62 @@ public class KlientTest {
     Model model;
     Wypozyczenie wypozyczenie;
     Klient klient;
+
     @Before
     public void setUp() throws Exception {
-        Kategoria kategoria=new Kategoria("testKat","");
-        model=new Model("testModel",kategoria);
+        Kategoria kategoria = new Kategoria("testKat", "");
+        model = new Model("testModel", kategoria);
         model.setCenaZaUszedzenia(10.0);
         model.setCenaZaDzienWypozyczenia(100.0);
-        ArrayList<Egzemplarz> egzemplarzArrayList=new ArrayList<>();
-        for(int i=0;i<14;i++)
-            egzemplarzArrayList.add(new Egzemplarz(StanSprzetu.DOSTEPNY,model));
+        ArrayList<Egzemplarz> egzemplarzArrayList = new ArrayList<>();
+        for (int i = 0; i < 14; i++)
+            egzemplarzArrayList.add(new Egzemplarz(StanSprzetu.DOSTEPNY, model));
         model.setEgzemplarze(egzemplarzArrayList);
         model.setIlosDostepnychEgzemplarzy(egzemplarzArrayList.size());
 
-        klient=new Klient("mikolaj","ktos","admin","admin","admin@admin.pl", 1);
+        klient = new Klient("mikolaj", "ktos", "admin", "admin", "admin@admin.pl", 1);
 
-        wypozyczenie=new Wypozyczenie(klient.getIdKlienta(), new Date(1), new Date(15), model, 5);
+        wypozyczenie = new Wypozyczenie(klient.getIdKlienta(), new Date(1), new Date(15), model, 5);
     }
 
     @Test
     public void zglosZgubienieZniszczenia() throws Exception {
-        double kasa=klient.getNaleznoscDoZaplaty();
-        klient.zglosZgubienieZniszczenia(wypozyczenie,1);
-        assertNotEquals("Test czy oplata zostala zwiekszona",kasa,klient.getNaleznoscDoZaplaty());
+        double kasa = klient.getNaleznoscDoZaplaty();
+        klient.zglosZgubienieZniszczenia(wypozyczenie, 1);
+        assertNotEquals("Test czy oplata zostala zwiekszona", kasa, klient.getNaleznoscDoZaplaty());
     }
 
     /**
-     *  test w przypadku gdy podano zbyt duza liczbe uszkodzonego sprzetu
+     * test w przypadku gdy podano zbyt duza liczbe uszkodzonego sprzetu
      */
     @Test(expected = Exception.class)
     public void zglosZgubienieZniszczenia1() throws Exception {
-        double kasa=klient.getNaleznoscDoZaplaty();
-        klient.zglosZgubienieZniszczenia(wypozyczenie,100);
+        double kasa = klient.getNaleznoscDoZaplaty();
+        klient.zglosZgubienieZniszczenia(wypozyczenie, 100);
     }
+
     /**
-     *  test w przypadku gdy podao zbyt małą liczbe uszkodzonego sprzetu
+     * test w przypadku gdy podao zbyt małą liczbe uszkodzonego sprzetu
      */
     @Test(expected = Exception.class)
     public void zglosZgubienieZniszczenia2() throws Exception {
-        double kasa=klient.getNaleznoscDoZaplaty();
-        klient.zglosZgubienieZniszczenia(wypozyczenie,-1);
+        double kasa = klient.getNaleznoscDoZaplaty();
+        klient.zglosZgubienieZniszczenia(wypozyczenie, -1);
     }
 
     @Test
     public void wydluzWypozyczenie() throws Exception {
-        Double naleznosc =klient.getNaleznoscDoZaplaty();
-        klient.wydluzWypozyczenie(new Date(20),wypozyczenie);
-        assertNotEquals("test zwiekszenia naleznosci",naleznosc,klient.getNaleznoscDoZaplaty());
+        Double naleznosc = klient.getNaleznoscDoZaplaty();
+        klient.wydluzWypozyczenie(new Date(20), wypozyczenie);
+        assertNotEquals("test zwiekszenia naleznosci", naleznosc, klient.getNaleznoscDoZaplaty());
     }
 
     @Test
     public void wypozyczSprzet() throws Exception {
-        Integer iloscWypozyczen= klient.getiloscWypozyczen();
+        Integer iloscWypozyczen = klient.getiloscWypozyczen();
         klient.wypozyczSprzet(model, new Date(1), new Date(15), 5);
         //System.out.println(klient.getWypozyczenie(klient.getiloscWypozyczen()-1).equals(wypozyczenie));
-        Assert.assertNotEquals(iloscWypozyczen,klient.getiloscWypozyczen());
+        Assert.assertNotEquals(iloscWypozyczen, klient.getiloscWypozyczen());
     }
+
 }

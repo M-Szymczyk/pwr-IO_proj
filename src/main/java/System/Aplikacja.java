@@ -170,7 +170,7 @@ public class Aplikacja {
     }
 
     public static void edytujOpisModelu(String name, String opis) {
-
+        //todo napisac metode XD
     }
 
     public static ArrayList<Model> getModele() {

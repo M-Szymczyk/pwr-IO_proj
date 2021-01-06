@@ -55,7 +55,7 @@ public class Wypozyczenie {
         this.egzemplarze = new ArrayList<>();
         this.koszt_wypozyczenia = (data_zwrotu.getTime() - data_wypozyczenia.getTime()) * model.getCenaZaDzienWypozyczenia();
         if (model.getIlosDostepnychEgzemplarzy() < ilosc)
-            throw new Exception("Brak dostepnych egzemplarzy. Dostepnych egzemplarzy: "+model.getIlosDostepnychEgzemplarzy()+",a wypozycza sie: "+ ilosc);
+            throw new Exception("Brak dostepnych egzemplarzy. Dostepnych egzemplarzy: " + model.getIlosDostepnychEgzemplarzy() + ",a wypozycza sie: " + ilosc);
         int i = 0;
         int cnt = 0;
         Egzemplarz e;
@@ -77,7 +77,7 @@ public class Wypozyczenie {
 
     }
 
-    Model getModel(){
+    Model getModel() {
         return egzemplarze.get(0).getModel();
     }
 
@@ -110,9 +110,10 @@ public class Wypozyczenie {
         return egzemplarze;
     }
 
-    public void addToEgzemplarze(Egzemplarz e){
+    public void addToEgzemplarze(Egzemplarz e) {
         this.egzemplarze.add(e);
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

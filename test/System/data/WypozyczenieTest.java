@@ -15,30 +15,31 @@ public class WypozyczenieTest {
     Model mod;
     Wypozyczenie wyp;
     Klient klient;
+
     @Before
     public void setUp() throws Exception {
-        klient=new Klient("","","","","",1);
-        kat=new Kategoria("kat","");
-        mod=new Model("",kat);
-        ArrayList<Egzemplarz> egzemplarzs=new ArrayList<>();
-        for(int i =0;i<10;i++)
-            egzemplarzs.add(new Egzemplarz(StanSprzetu.DOSTEPNY,mod));
+        klient = new Klient("", "", "", "", "", 1);
+        kat = new Kategoria("kat", "");
+        mod = new Model("", kat);
+        ArrayList<Egzemplarz> egzemplarzs = new ArrayList<>();
+        for (int i = 0; i < 10; i++)
+            egzemplarzs.add(new Egzemplarz(StanSprzetu.DOSTEPNY, mod));
         mod.setEgzemplarze(egzemplarzs);
         mod.setIlosDostepnychEgzemplarzy(egzemplarzs.size());
-        wyp=new Wypozyczenie(klient.getIdKlienta(),new Date(0),new Date(10),mod,10);
+        wyp = new Wypozyczenie(klient.getIdKlienta(), new Date(0), new Date(10), mod, 10);
     }
 
     @Test
     public void wydluzWypozyczenie() {
-        Date staraData =wyp.getData_zwrotu();
+        Date staraData = wyp.getData_zwrotu();
         wyp.wydluzWypozyczenie(new Date(15));
-        assertNotEquals(staraData,wyp.getData_zwrotu());
+        assertNotEquals(staraData, wyp.getData_zwrotu());
     }
 
     @Test
     public void naliczDodatkowaOplate() {
-        Double staryStan=wyp.getKoszt_wypozyczenia();
+        Double staryStan = wyp.getKoszt_wypozyczenia();
         wyp.naliczDodatkowaOplate(100.0);
-        assertNotEquals(staryStan,wyp.getKoszt_wypozyczenia());
+        assertNotEquals(staryStan, wyp.getKoszt_wypozyczenia());
     }
 }

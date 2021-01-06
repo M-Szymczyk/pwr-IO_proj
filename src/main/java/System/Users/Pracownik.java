@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Pracownik extends Uzytkownik {
 
     Pracownik(String imie, String nazwisko, String login, String haslo, String email) {
-        super(imie, nazwisko, login, haslo, email);
+        super(imie, nazwisko, login, haslo, email,TypUzytkownika.PRACOWNIK);
         this.typUzytkownika = TypUzytkownika.PRACOWNIK;
     }
 
@@ -33,13 +33,12 @@ public class Pracownik extends Uzytkownik {
     public void analizujStanSprzetu(Egzemplarz e) throws Exception {
         Scanner scan = new Scanner(System.in);
         System.out.println("Czy sprzet jest uszkodzony? T/N");
-        int wybor = scan.nextInt(); //todo nextLine?xd
-                                    // porównuję kody znaków ASCII bo "==" wydaje mi się bardziej czytelne niż wybor.equal("T")
+        int wybor = scan.nextInt();
+        // porównuję kody znaków ASCII
         if (wybor == 'T' || wybor == 't') {
             e.zmienStanSprzetu(StanSprzetu.USZKODZONY);
         } else if (wybor == 'N' || wybor == 'n') {
             e.zmienStanSprzetu(StanSprzetu.DOSTEPNY);
-            //e.getModel().setIlosDostepnychEgzemplarzy(e.getModel().getIlosDostepnychEgzemplarzy() + 1);
         }
     }
 

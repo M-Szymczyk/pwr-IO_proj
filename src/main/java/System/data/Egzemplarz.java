@@ -6,8 +6,8 @@ package System.data;
 public class Egzemplarz {
 
     private StanSprzetu stan_egzemplarza;
-    private String numer_seryjny;      //todo zastanowisc sie czy nie powienien tu byc string
-    private Model model;
+    private String numer_seryjny;
+    private final Model model;
 
     /**
      * Konstruktor egzemplarza
@@ -28,7 +28,6 @@ public class Egzemplarz {
         }
         this.model = model;
     }
-
 
     /**
      * aktualizacja stanu sprzetu
@@ -89,6 +88,4 @@ public class Egzemplarz {
         result = 31 * result + getModel().hashCode();
         return result;
     }
-
-
 }
