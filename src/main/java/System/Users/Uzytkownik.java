@@ -116,12 +116,12 @@ public class Uzytkownik {
      * @return referencje do modelu
      */
     public static Model wyszukajModel(String nazwa) throws Exception {
-        boolean znalezionoModel = false;
+        //boolean znalezionoModel = false;
         Model curr = null;
 
         for (Model x : Aplikacja.getModele()) {
             if (x.getNazwa().equals(nazwa)) {
-                znalezionoModel = true;
+                //znalezionoModel = true;
                 curr = x;
             }
         }

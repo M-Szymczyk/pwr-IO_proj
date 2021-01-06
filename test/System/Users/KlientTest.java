@@ -18,6 +18,8 @@ public class KlientTest {
     public void setUp() throws Exception {
         Kategoria kategoria=new Kategoria("testKat","");
         model=new Model("tsetModel",kategoria);
+        model.setCenaZaUszedzenia(10.0);
+        model.setCenaZaDzienWypozyczenia(100.0);
         ArrayList<Egzemplarz> egzemplarzArrayList=new ArrayList<>();
         for(int i=0;i<5;i++)
             egzemplarzArrayList.add(new Egzemplarz(StanSprzetu.DOSTEPNY,model));
@@ -32,14 +34,21 @@ public class KlientTest {
     public void zglosZgubienieZniszczenia() {
         double kasa=klient.getNaleznoscDoZaplaty();
         klient.zglosZgubienieZniszczenia(wypozyczenie,1);
-        assertNotEquals(kasa,klient.getNaleznoscDoZaplaty());
+        assertNotEquals("Test czy oplata zostala zwiekszona",kasa,klient.getNaleznoscDoZaplaty());
     }
 
+    /**
+     *  test w przypadku gdy podano zbyt duza liczbe uszkodzonego sprzetu
+     */
     @Test(expected = Exception.class)
     public void zglosZgubienieZniszczenia1() {
         double kasa=klient.getNaleznoscDoZaplaty();
         klient.zglosZgubienieZniszczenia(wypozyczenie,100);
+
     }
+    /**
+     *  test w przypadku gdy podao zbyt małą liczbe uszkodzonego sprzetu
+     */
     @Test(expected = Exception.class)
     public void zglosZgubienieZniszczenia2() {
         double kasa=klient.getNaleznoscDoZaplaty();
@@ -50,7 +59,7 @@ public class KlientTest {
     public void wydluzWypozyczenie() throws Exception {
         Double naleznosc =klient.getNaleznoscDoZaplaty();
         klient.wydluzWypozyczenie(new Date(20),wypozyczenie);
-        assertNotEquals(naleznosc,klient.getNaleznoscDoZaplaty());
+        assertNotEquals("test zwiekszenia naleznosci",naleznosc,klient.getNaleznoscDoZaplaty());
     }
 
     @Test
@@ -59,6 +68,5 @@ public class KlientTest {
         klient.wypozyczSprzet(model, new Date(1), new Date(15), 5);
         //System.out.println(klient.getWypozyczenie(klient.getiloscWypozyczen()-1).equals(wypozyczenie));
         Assert.assertNotEquals(iloscWypozyczen,klient.getiloscWypozyczen());
-
     }
 }

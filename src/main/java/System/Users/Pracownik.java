@@ -39,7 +39,7 @@ public class Pracownik extends Uzytkownik {
             e.zmienStanSprzetu(StanSprzetu.USZKODZONY);
         } else if (wybor == 'N' || wybor == 'n') {
             e.zmienStanSprzetu(StanSprzetu.DOSTEPNY);
-            e.getModel().setIlosDostepnychEgzemplarzy(e.getModel().getIlosDostepnychEgzemplarzy() + 1);
+            //e.getModel().setIlosDostepnychEgzemplarzy(e.getModel().getIlosDostepnychEgzemplarzy() + 1);
         }
     }
 
