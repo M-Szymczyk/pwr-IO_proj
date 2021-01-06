@@ -5,6 +5,7 @@ import System.Users.TypUzytkownika;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -19,6 +20,11 @@ public class WypozyczenieTest {
         klient=new Klient("","","","","", TypUzytkownika.KLIENT,1);
         kat=new Kategoria("kat","");
         mod=new Model("",kat);
+        ArrayList<Egzemplarz> egzemplarzs=new ArrayList<>();
+        for(int i =0;i<10;i++)
+            egzemplarzs.add(new Egzemplarz(StanSprzetu.DOSTEPNY,mod));
+        mod.setEgzemplarze(egzemplarzs);
+        mod.setIlosDostepnychEgzemplarzy(egzemplarzs.size());
         wyp=new Wypozyczenie(klient.getIdKlienta(),new Date(0),new Date(10),mod,10);
     }
 

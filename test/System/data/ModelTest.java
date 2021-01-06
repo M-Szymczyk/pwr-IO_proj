@@ -28,7 +28,7 @@ public class ModelTest {
     @Test
     public void usunEgzemplarz() {
         int size = arrayList.size();
-        mod.usunEgzemplarz(1);
+        mod.usunEgzemplarz("00001");
 //        assertThat(mod.getEgzemplarze(), hasItems(e2));
         assertEquals(size-1,mod.getEgzemplarze().size());
     }

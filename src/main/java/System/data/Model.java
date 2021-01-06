@@ -24,10 +24,11 @@ public class Model {
 
     /**
      * kostruktor
-     * @param nazwaModelu nazwa
+     *
+     * @param nazwaModelu             nazwa
      * @param cenaZaDzienWypozyczenia cena za dzien
-     * @param cenaZaUszedzenia cena wykorzystywana w razie zniszczenia lub uszkodzenia jednego z egzemplarzy
-     * @param kategoria w jakiej kategorii jest model
+     * @param cenaZaUszedzenia        cena wykorzystywana w razie zniszczenia lub uszkodzenia jednego z egzemplarzy
+     * @param kategoria               w jakiej kategorii jest model
      */
     public Model(String nazwaModelu, Double cenaZaDzienWypozyczenia,
                  Double cenaZaUszedzenia, Kategoria kategoria) {
@@ -43,9 +44,9 @@ public class Model {
 
     /**
      * kostruktor
-     * @param nazwaModelu nazwa
-     * @param kategoria w jakiej kategorii jest model
      *
+     * @param nazwaModelu nazwa
+     * @param kategoria   w jakiej kategorii jest model
      */
     public Model(String nazwaModelu, Kategoria kategoria) {
         this.egzemplarze = new ArrayList<>();
@@ -59,31 +60,40 @@ public class Model {
 
     /**
      * metoda usuwa pojednczy egzemplarz z listy modeli
+     *
      * @param numerSeryjny numer seryjny modeli
      */
-    public void usunEgzemplarz(int numerSeryjny){
-        egzemplarze.removeIf(e -> e.getNumer_seryjny().equals(numerSeryjny));
-        //todo pytanie czy powinno tez usuwac przypisanie modelu w egzemplarzu
+    public void usunEgzemplarz(String numerSeryjny) {
+        //egzemplarze.removeIf(e -> e.getNumer_seryjny().equals(numerSeryjny));
+
+        for (Egzemplarz egz : egzemplarze) {
+            if (egz.getNumer_seryjny().equals(numerSeryjny)) {
+                egzemplarze.remove(egz);
+                break;
+            }
+        }
     }
 
     /**
      * Ustawia aktualna liste egzemplarzy
+     *
      * @param egzemplarze nowa arraylista
      */
     public void setEgzemplarze(ArrayList<Egzemplarz> egzemplarze) {
-        int ilosc=0;
+        int ilosc = 0;
         this.egzemplarze = egzemplarze;
-        for(Egzemplarz e :egzemplarze)
-            if(e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY))
+        for (Egzemplarz e : egzemplarze)
+            if (e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY))
                 ilosc++;
-        ilosDostepnychEgzemplarzy=ilosc;
+        ilosDostepnychEgzemplarzy = ilosc;
     }
 
     /**
      * dodaje pojedynczy egzemplarz do listy
+     *
      * @param egzemplarz dodawny egzemplarz
      */
-    public void dodajEgzemplarz(Egzemplarz egzemplarz){
+    public void dodajEgzemplarz(Egzemplarz egzemplarz) {
         this.ilosDostepnychEgzemplarzy++;
         egzemplarze.add(egzemplarz);
     }
@@ -160,7 +170,7 @@ public class Model {
 
     @Override
     public int hashCode() {
-        int result =  getIlosDostepnychEgzemplarzy().hashCode();
+        int result = getIlosDostepnychEgzemplarzy().hashCode();
         result = 31 * result + (nazwaModelu != null ? nazwaModelu.hashCode() : 0);
         result = 31 * result + (getCenaZaDzienWypozyczenia() != null ? getCenaZaDzienWypozyczenia().hashCode() : 0);
         result = 31 * result + (getCenaZaUszedzenia() != null ? getCenaZaUszedzenia().hashCode() : 0);

@@ -25,7 +25,7 @@ public class EgzemplarzTest {
 
     @Test
     public void getNumer_seryjny() {
-        String one="1";
+        String one="00001";
         assertEquals( one,eg.getNumer_seryjny());
     }
 
