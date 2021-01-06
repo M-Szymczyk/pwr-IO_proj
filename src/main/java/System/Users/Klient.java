@@ -108,29 +108,30 @@ public class Klient extends Uzytkownik {
      * @param model     jaki model sprzetu wypozyczasz
      * @param dateWyp   data wypozyczenia
      * @param dateZwrot data zwrotu
-     * @param ilosc     ilosc wypozyczanego sprzetu
+     * @param liczba     liczba wypozyczanego sprzetu
      * @throws Exception jezeli nie ssa dostepne zadne sprzety
      */
-    public void wypozyczSprzet(Model model, Date dateWyp, Date dateZwrot, Integer ilosc) throws Exception {
+    public void wypozyczSprzet(Model model, Date dateWyp, Date dateZwrot, Integer liczba) throws Exception {
         //sprawdź dostęność egzemplarzy
-        if (sprawdzDostepnosc(model)) {
-            Wypozyczenie wyp = new Wypozyczenie(idKlienta, dateWyp, dateZwrot, model, ilosc);
+        if (sprawdzDostepnosc(model,liczba)) {
+            Wypozyczenie wyp = new Wypozyczenie(idKlienta, dateWyp, dateZwrot, model, liczba);
             int i = 0;
             int cnt = 0;
             Egzemplarz e;
-            while (cnt < ilosc) {
+            while (cnt < liczba) {
                 e = model.getEgzemplarze().get(i);
                 if (e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY)) {
                     wyp.addToEgzemplarze(e);
                     e.zmienStanSprzetu(StanSprzetu.NIEDOSTEPNY);
-                    model.setIlosDostepnychEgzemplarzy(model.getIlosDostepnychEgzemplarzy() - 1);
+                    //model.setIlosDostepnychEgzemplarzy(model.getIlosDostepnychEgzemplarzy() - 1);
                     cnt++;
                 }
             }
             //przypisz klientowi wypożyczenie
             this.wypozyczenia.add(wyp);
         } else
-            throw new Exception("Brak dostępnych egzemplarzy");
+            throw new Exception("Brak dostępnych egzemplarzy. Dostepne sa: "+model.getIlosDostepnychEgzemplarzy()+
+                    " egzemplarzy, a wymaga sie: "+liczba);
     }
 
     public void wypozyczSprzet(String nazwa, Date dateWyp, Date dateZwrot, Integer ilosc) throws Exception {
@@ -138,12 +139,25 @@ public class Klient extends Uzytkownik {
         wypozyczSprzet(wyszukajModel(nazwa), dateWyp, dateZwrot, ilosc);
     }
 
-    public boolean sprawdzDostepnosc(Model model) {
-        return (0 < model.getIlosDostepnychEgzemplarzy());
+    /**
+     * Metoda sprawdza czy liczba dostepnych egzemplarzy w modelu jest wystarczajaca
+     * @param model tu jest sprawdzana liczba dostepnych egzemplarzy
+     * @param ilosc wymagana ilosc
+     * @return warunek loginczny
+     */
+    public boolean sprawdzDostepnosc(Model model,int ilosc) {
+        return (ilosc <= model.getIlosDostepnychEgzemplarzy());
     }
 
-    public boolean sprawdzDostepnosc(String nazwa) throws Exception {
-        return sprawdzDostepnosc(wyszukajModel(nazwa));
+    /**
+     * Metoda sprawdza czy liczba dostepnych egzemplarzy w modelu jest wystarczajaca
+     * @param nazwa nazwa modelu
+     * @param liczba wymagana liczba
+     * @return true jezeli @liczba jest mniejsza od liczby dostepnych egzemplarzy w modeli
+     * @throws Exception jezeli nie znaleziono modelu o podanej nazwie
+     */
+    public boolean sprawdzDostepnosc(String nazwa,int liczba) throws Exception {
+        return sprawdzDostepnosc(wyszukajModel(nazwa),liczba);
     }
 
 
@@ -152,11 +166,11 @@ public class Klient extends Uzytkownik {
      *
      * @param w dodawne wypozyczenie
      */
-    public void dodajWypożyczenie(Wypozyczenie w) {
+    public void dodajWypozyczenie(Wypozyczenie w) {
         wypozyczenia.add(w);
     }
 
-    public void przeglądajWypozyczenia() {
+    public void przegladajWypozyczenia() {
         int iloscWyp = getiloscWypozyczen();
         int i = 1;
 
