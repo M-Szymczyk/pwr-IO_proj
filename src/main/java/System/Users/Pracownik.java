@@ -1,12 +1,7 @@
 package System.Users;
 
-import System.Users.Uzytkownik;
 import System.Aplikacja;
-import System.data.AppException;
-import System.data.Kategoria;
-import System.data.Model;
-import System.data.Egzemplarz;
-import System.data.StanSprzetu;
+import System.data.*;
 
 import java.util.Scanner;
 
@@ -38,7 +33,8 @@ public class Pracownik extends Uzytkownik {
     public void analizujStanSprzetu(Egzemplarz e) throws Exception {
         Scanner scan = new Scanner(System.in);
         System.out.println("Czy sprzet jest uszkodzony? T/N");
-        int wybor = scan.nextInt();//todo nextLine?xd
+        int wybor = scan.nextInt(); //todo nextLine?xd
+                                    // porównuję kody znaków ASCII bo "==" wydaje mi się bardziej czytelne niż wybor.equal("T")
         if (wybor == 'T' || wybor == 't') {
             e.zmienStanSprzetu(StanSprzetu.USZKODZONY);
         } else if (wybor == 'N' || wybor == 'n') {

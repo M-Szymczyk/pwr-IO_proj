@@ -8,13 +8,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Uzytkownik {
     private static final AtomicInteger count = new AtomicInteger(0);
-    public long id;
-    public String imie;
-    public String nazwisko;
-    public String login;
+    private long id;
+    private String imie;
+    private String nazwisko;
+    private String login;
     private String haslo;
-    public String email;
-    public TypUzytkownika typUzytkownika;
+    private String email;
+    TypUzytkownika typUzytkownika;
 
     public long getId() {
         return id;
@@ -63,7 +63,7 @@ public class Uzytkownik {
         }
     }
 
-    Uzytkownik(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user){
+    public Uzytkownik(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user){
         id = count.incrementAndGet();
         this.setImie(imie);
         this.setNazwisko(nazwisko);
@@ -106,8 +106,7 @@ public class Uzytkownik {
 //    }
 
     public boolean checkPassword(String haslo){
-        if(this.haslo.equals(haslo)) return true;
-        return false;
+        return this.haslo.equals(haslo);
     }
 
     /**

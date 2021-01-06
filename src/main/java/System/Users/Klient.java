@@ -6,9 +6,9 @@ import System.data.StanSprzetu;
 import System.data.Wypozyczenie;
 import System.Aplikacja;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
 /**
  * Klasa odpowiedzialana za przechowywanie inforamcji o wypozyczeniach klienta
@@ -18,12 +18,31 @@ public class Klient extends Uzytkownik {
     private ArrayList<Wypozyczenie> wypozyczenia;
     private Double naleznoscDoZaplaty;
 
-    public void zglosZgubienieZniszczenia(String nazwa, Integer ilosc) {
+
+    public void zglosZgubienieZniszczenia(String nazwa, Integer ilosc) throws Exception {
+        Model model = wyszukajModel(nazwa);
+        boolean znaleziono = false;
+        boolean dataFail = false;
+        Wypozyczenie wyp = null;
         for (Wypozyczenie x : wypozyczenia) {
-            if (x.getEgzemplarze().get(0).getModel().getNazwa().equals(nazwa)) {
-                zglosZgubienieZniszczenia(x, ilosc);
+            if (model.getNazwa().equals(nazwa)) {
+                znaleziono = true;
+                if(x.getEgzemplarze().size() < ilosc) dataFail = true;
+                wyp = x;
+                break;
             }
         }
+
+        if(!znaleziono){
+            JOptionPane.showMessageDialog(null, "Nie znaleziono wypożyczenia podanego modelu");
+
+        }
+        else if(dataFail){
+            JOptionPane.showMessageDialog(null,
+                    "Niepoprawne dane! Zgłaszana ilość egzemplarzy jest większa niż ilość wypożyczonych egzemplarzy");
+
+        }else
+            zglosZgubienieZniszczenia(wyp, ilosc);
     }
 
     /**
@@ -32,9 +51,11 @@ public class Klient extends Uzytkownik {
      * @param w     w ktorym wypozyczeniu zgubiono sprzet
      * @param ilosc ilosc ile przedmiotow z wypozyczenia zgubiono
      */
-    public void zglosZgubienieZniszczenia(Wypozyczenie w, Integer ilosc) {
+    private void zglosZgubienieZniszczenia(Wypozyczenie w, Integer ilosc) throws Exception {
+        if(w == null) throw new Exception("Podano Nulla");
         setNaleznoscDoZaplaty(getNaleznoscDoZaplaty() + w.getEgzemplarze().get(0).getModel().getCenaZaUszedzenia() * ilosc);
     }
+
 
     /**
      * Moetoda wykorzystywana do przedluzania wypozyczenia
@@ -43,13 +64,18 @@ public class Klient extends Uzytkownik {
      * @param wypozyczenie ktore wypozyczenie przedluza
      * @throws Exception jezeli nie ma dostepnych egzemplarzy do wypozyczenia
      */
-    public void wydluzWypozyczenie(Date date, Wypozyczenie wypozyczenie) throws Exception {
+    void wydluzWypozyczenie(Date date, Wypozyczenie wypozyczenie) throws Exception {
+
         if (wypozyczenie.getEgzemplarze().get(0).getModel().getIlosDostepnychEgzemplarzy() <
-                wypozyczenie.getEgzemplarze().size())
+               wypozyczenie.getEgzemplarze().size())
             throw new Exception("Brak dsotepnych egzemplarzy");
-        else
+        else {
+            //naliczenie opłaty
             setNaleznoscDoZaplaty(wypozyczenie.getEgzemplarze().get(0).getModel().getCenaZaDzienWypozyczenia() *
                     (date.getTime() - wypozyczenie.getData_zwrotu().getTime()));
+            //zmiana danych wypożyczenia (data zwrotu)
+            wypozyczenie.setData_zwrotu(date);
+        }
     }
 
     /**
@@ -63,13 +89,14 @@ public class Klient extends Uzytkownik {
             if (w.equals(wypozyczenie)) {
                 for (Egzemplarz egz : w.getEgzemplarze()) {
                     try {
+                        //analiza stanu sprzętu
                         Pracownik pracownik = (Pracownik) Aplikacja.getWolnyPracownik();
                         pracownik.analizujStanSprzetu(egz);//stan jest zmieniany w tej metodzie
                     } catch (Exception e) {
                         throw e;
                     }
                 }
-                w = null;
+                wypozyczenia.remove(w);
                 return;
             }
         }
@@ -177,6 +204,7 @@ public class Klient extends Uzytkownik {
     public Wypozyczenie getWypozyczenie(int id) {
         return wypozyczenia.get(id);
     }
+
 
     public Integer getiloscWypozyczen() {
         return wypozyczenia.size();

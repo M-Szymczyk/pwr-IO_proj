@@ -5,11 +5,9 @@ package System.data;
  */
 public class Egzemplarz {
 
-    private long nr_seryjny_cnt = 0;
     private StanSprzetu stan_egzemplarza;
     private String numer_seryjny;      //todo zastanowisc sie czy nie powienien tu byc string
     private Model model;
-    private static int nrlen = 8;
 
     /**
      * Konstruktor egzemplarza
@@ -18,9 +16,11 @@ public class Egzemplarz {
      * @param model            jaki jest model sprzetu
      */
     public Egzemplarz(StanSprzetu stan_egzemplarza, Model model) {
+        long nr_seryjny_cnt = 0;
         ++nr_seryjny_cnt;
         this.stan_egzemplarza = stan_egzemplarza;
         this.numer_seryjny = String.valueOf(nr_seryjny_cnt);
+        int nrlen = 8;
         if (this.numer_seryjny.length() < nrlen) {
             for (int i = 0; i < nrlen - this.numer_seryjny.length(); i++) {
                 this.numer_seryjny = "0" + this.numer_seryjny;

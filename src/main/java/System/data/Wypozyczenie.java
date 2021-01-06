@@ -69,6 +69,10 @@ public class Wypozyczenie {
 
     }
 
+    Model getModel(){
+        return egzemplarze.get(0).getModel();
+    }
+
     /////////////////////////// gettery i settery ///////////////////////////////////////
     public void setData_zwrotu(Date data_zwrotu) {
         this.data_zwrotu = data_zwrotu;
@@ -106,7 +110,8 @@ public class Wypozyczenie {
         if (this == o) return true;
         if (!(o instanceof Wypozyczenie)) return false;
 
-        Wypozyczenie that = (Wypozyczenie) o;
+        Wypozyczenie that;
+        that = (Wypozyczenie) o;
 
         if (!getId_wypozyczajacego().equals(that.getId_wypozyczajacego())) return false;
         if (getData_wypozyczenia() != null ? !getData_wypozyczenia().equals(that.getData_wypozyczenia()) : that.getData_wypozyczenia() != null)
