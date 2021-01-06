@@ -56,11 +56,20 @@ public class Wypozyczenie {
         this.koszt_wypozyczenia = (data_zwrotu.getTime() - data_wypozyczenia.getTime()) * model.getCenaZaDzienWypozyczenia();
         if (model.getIlosDostepnychEgzemplarzy() > ilosc)
             throw new Exception("Brak dostepnych egzemplarzy");
-        for (Egzemplarz e : model.getEgzemplarze())
+        int i = 0;
+        int cnt = 0;
+        Egzemplarz e;
+        while (cnt < ilosc) {
+            e = model.getEgzemplarze().get(i);
             if (e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY)) {
-                this.egzemplarze.add(e);
+                this.addToEgzemplarze(e);
                 e.zmienStanSprzetu(StanSprzetu.NIEDOSTEPNY);
+                cnt++;
             }
+            i++;
+        }
+        model.setIlosDostepnychEgzemplarzy(model.getIlosDostepnychEgzemplarzy() - ilosc);
+
     }
 
     public Wypozyczenie(Integer id_wypozyczajacego, Date data_wypozyczenia, Date data_zwrotu, String nazwa, Integer ilosc) throws Exception {

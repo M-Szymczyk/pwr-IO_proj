@@ -111,26 +111,14 @@ public class Klient extends Uzytkownik {
      * @param ilosc     ilosc wypozyczanego sprzetu
      * @throws Exception jezeli nie ssa dostepne zadne sprzety
      */
-    public void wypozyczSprzet(Model model, Date dateWyp, Date dateZwrot, Integer ilosc) throws Exception {
-        //sprawdź dostęność egzemplarzy
-        if (sprawdzDostepnosc(model)) {
+    void wypozyczSprzet(Model model, Date dateWyp, Date dateZwrot, Integer ilosc) throws Exception {
+
             Wypozyczenie wyp = new Wypozyczenie(idKlienta, dateWyp, dateZwrot, model, ilosc);
-            int i = 0;
-            int cnt = 0;
-            Egzemplarz e;
-            while (cnt < ilosc) {
-                e = model.getEgzemplarze().get(i);
-                if (e.getStan_egzemplarza().equals(StanSprzetu.DOSTEPNY)) {
-                    wyp.addToEgzemplarze(e);
-                    e.zmienStanSprzetu(StanSprzetu.NIEDOSTEPNY);
-                    model.setIlosDostepnychEgzemplarzy(model.getIlosDostepnychEgzemplarzy() - 1);
-                    cnt++;
-                }
-            }
             //przypisz klientowi wypożyczenie
             this.wypozyczenia.add(wyp);
-        } JOptionPane.showMessageDialog(null,"Brak dostępnych egzemplarzy");
-    }
+            //dolicz należność do zapłaty do rachunku klienta
+            this.naleznoscDoZaplaty += wyp.getKoszt_wypozyczenia();
+        }
 
 
     public void wypozyczSprzet(String nazwa, Date dateWyp, Date dateZwrot, Integer ilosc) throws Exception {
