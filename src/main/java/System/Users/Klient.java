@@ -163,11 +163,10 @@ public class Klient extends Uzytkownik {
      * @param login     login klienta
      * @param haslo     haslo klienta
      * @param email     email kleinta
-     * @param user      typ uzytkownika//todo na pewno to powinoo byc tez pobierane
      * @param idKlienta id klienta //przydal by sie kostruktor z jakims przydzieleaniem id klienta
      */
-    public Klient(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user, Integer idKlienta) {
-        super(imie, nazwisko, login, haslo, email, user);
+    public Klient(String imie, String nazwisko, String login, String haslo, String email, Integer idKlienta) {
+        super(imie, nazwisko, login, haslo, email, TypUzytkownika.KLIENT);
         this.idKlienta = idKlienta;
         naleznoscDoZaplaty = 0.0;
         wypozyczenia = new ArrayList<>();

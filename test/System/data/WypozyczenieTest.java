@@ -17,7 +17,7 @@ public class WypozyczenieTest {
     Klient klient;
     @Before
     public void setUp() throws Exception {
-        klient=new Klient("","","","","", TypUzytkownika.KLIENT,1);
+        klient=new Klient("","","","","",1);
         kat=new Kategoria("kat","");
         mod=new Model("",kat);
         ArrayList<Egzemplarz> egzemplarzs=new ArrayList<>();

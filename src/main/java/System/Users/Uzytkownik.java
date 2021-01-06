@@ -96,7 +96,7 @@ public class Uzytkownik {
     Uzytkownik(){}
 
 
-    //chyba niepotrzebne, przynajmniej rejestracja
+    //todo chyba niepotrzebne, przynajmniej rejestracja
 //    public void rejestracja(String imie, String nazwisko, String login, String haslo, String email, TypUzytkownika user) throws AppException {
 //        Uzytkownik currUser = new Uzytkownik(imie, nazwisko, login, haslo, email,user);
 //        Aplikacja.rejestracja(currUser);
@@ -111,8 +111,7 @@ public class Uzytkownik {
     }
 
     /**
-     * //todo metoda do uzupelnienia
-     * Wyszukuje modele po danje nazwie???
+     * Wyszukuje modele po danje nazwie
      * @param nazwa nazwa szukanego modelu
      * @return referencje do modelu
      */
