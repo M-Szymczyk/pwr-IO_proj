@@ -1,9 +1,6 @@
 package System.Users;
 
-import System.data.Egzemplarz;
-import System.data.Model;
-import System.data.StanSprzetu;
-import System.data.Wypozyczenie;
+import System.data.*;
 import System.Aplikacja;
 
 import javax.swing.*;
@@ -34,12 +31,11 @@ public class Klient extends Uzytkownik {
         }
 
         if(!znaleziono){
-            JOptionPane.showMessageDialog(null, "Nie znaleziono wypożyczenia podanego modelu");
+            throw new AppException("Nie znaleziono wypożyczenia podanego modelu");
 
         }
         else if(dataFail){
-            JOptionPane.showMessageDialog(null,
-                    "Niepoprawne dane! Zgłaszana ilość egzemplarzy jest większa niż ilość wypożyczonych egzemplarzy");
+            throw new AppException("Podana ilość jest większa niż ilość wypożyczonych egzemplarzy");
 
         }else
             zglosZgubienieZniszczenia(wyp, ilosc);
