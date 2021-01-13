@@ -2,6 +2,7 @@ package System.data;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import System.Aplikacja;
 
 /**
  * Klasa przechowuje informacje o danym modelu
@@ -18,7 +19,7 @@ public class Model {
     /**
      * @return arrayList egzemplarzy
      */
-    public ArrayList<Egzemplarz> getEgzemplarze() {
+    ArrayList<Egzemplarz> getEgzemplarze() {
         return egzemplarze;
     }
 
@@ -42,6 +43,12 @@ public class Model {
         this.opis = "";
     }
 
+    public Model (String nazwaModelu, Double cenaZaDzienWypozyczenia,
+    Double cenaZaUszedzenia, String kategoria) throws Exception {
+        Kategoria k =  Aplikacja.wyszukajKategorie(kategoria);
+        new Model(nazwaModelu, cenaZaDzienWypozyczenia, cenaZaUszedzenia, k);
+    }
+
     /**
      * kostruktor
      *
@@ -63,7 +70,7 @@ public class Model {
      *
      * @param numerSeryjny numer seryjny modeli
      */
-    public void usunEgzemplarz(String numerSeryjny) {
+    void usunEgzemplarz(String numerSeryjny) {
         //egzemplarze.removeIf(e -> e.getNumer_seryjny().equals(numerSeryjny));
 
         for (Egzemplarz egz : egzemplarze) {
@@ -141,7 +148,7 @@ public class Model {
         this.kategoria = kategoria;
     }
 
-    public String getOpis() {
+    private String getOpis() {
         return opis;
     }
 

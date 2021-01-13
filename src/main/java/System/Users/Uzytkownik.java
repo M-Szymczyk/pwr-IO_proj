@@ -81,7 +81,7 @@ public class Uzytkownik {
         return email;
     }
 
-    public void setEmail(String email) {
+    private void setEmail(String email) {
         this.email = email;
     }
 
@@ -89,7 +89,7 @@ public class Uzytkownik {
         return imie;
     }
 
-    public void setImie(String imie) {
+    private void setImie(String imie) {
         this.imie = imie;
     }
 
@@ -97,7 +97,7 @@ public class Uzytkownik {
         return login;
     }
 
-    public void setLogin(String login) {
+    private void setLogin(String login) {
         this.login = login;
     }
 
@@ -105,7 +105,7 @@ public class Uzytkownik {
         return nazwisko;
     }
 
-    public void setNazwisko(String nazwisko) {
+    private void setNazwisko(String nazwisko) {
         this.nazwisko = nazwisko;
     }
 
@@ -113,7 +113,7 @@ public class Uzytkownik {
         return typUzytkownika;
     }
 
-    public void setTypUzytkownika(TypUzytkownika typUzytkownika) {
+    private void setTypUzytkownika(TypUzytkownika typUzytkownika) {
         this.typUzytkownika = typUzytkownika;
     }
 

@@ -12,7 +12,7 @@ public class UzytkownikTest {
     @Before
     public void setUp() throws Exception {
         uzytkownik = new Klient("admin", "admin", "admin",
-                "admin", "admin@admin", 1);
+                "admin", "admin@admin");
     }
 
     @Test

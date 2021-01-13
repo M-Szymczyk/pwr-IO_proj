@@ -135,16 +135,20 @@ public class Aplikacja {
         }
     }
 
-    public static void dodajModel(Model model) throws AppException {
+
+
+    /*--------------------------------------------------------------------------------------------------------------------*/
+
+    public static void dodajModel(Model model) throws Exception {
         for (Model x : modele) {
             if (model.getNazwa().equals(x.getNazwa())) {
-                throw new AppException("Model juz istnieje");
+                throw new Exception("Model juz istnieje");
             }
         }
         modele.add(model);
     }
 
-    public static void edytujModel(String oldName, String newName, double cenaZaDzien, double cenaZaEgzemplarz, String kategoria) throws AppException {
+    public static void edytujModel(String oldName, String newName, double cenaZaDzien, double cenaZaEgzemplarz, String kategoria) throws Exception {
         boolean znalezionoKategorie = false;
         boolean znalezionoModel = false;
         for (Model x : modele) {
@@ -162,15 +166,32 @@ public class Aplikacja {
             }
         }
         if (znalezionoKategorie == false) {
-            throw new AppException("Nie ma takiej kategorii");
+            throw new Exception("Nie ma takiej kategorii");
         }
         if (!znalezionoModel) {
-            throw new AppException("Nie ma takiego modelu");
+            throw new Exception("Nie ma takiego modelu");
         }
     }
 
-    public static void edytujOpisModelu(String name, String opis) {
-        //todo napisac metode XD
+    public static Kategoria wyszukajKategorie(String nazwa) throws Exception {
+
+        boolean znaleziono = false;
+        Kategoria k = null;
+        for(Kategoria x: kategorie){
+            if(x.getNazwaKategorii().equals(nazwa))
+                znaleziono = true;
+                k = x;
+                break;
+        }
+
+        if(znaleziono) throw new Exception("Nie znaleziono kategorii o podanej nazwie");
+        return k;
+    }
+
+
+    public static void edytujOpisModelu(String name, String opis) throws Exception {
+        Model m = Uzytkownik.wyszukajModel(name);
+        m.setOpis(opis);
     }
 
     public static ArrayList<Model> getModele() {
@@ -204,8 +225,8 @@ public class Aplikacja {
                         try {
                             dodajModel(model);
                             warPetli = false;
-                        } catch (AppException appException) {
-                            appException.printStackTrace();
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
                             warPetli = true;
                             System.out.println("Model o podanej nazwie nie istnieje. Sprubuj jeszcze raz");
                         }
@@ -237,7 +258,12 @@ public class Aplikacja {
 
     }
 
-    public static void dodajKategorie(Kategoria k) {
+    public static void dodajKategorie(Kategoria k) throws Exception {
+        for (Kategoria x : kategorie) {
+            if (k.getNazwaKategorii().equals(x.getNazwaKategorii())) {
+                throw new AppException("Kategoria juz istnieje");
+            }
+        }
         kategorie.add(k);
     }
 

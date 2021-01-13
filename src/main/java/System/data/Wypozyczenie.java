@@ -25,7 +25,7 @@ public class Wypozyczenie {
      *
      * @param nowaData nowa data zwrotu
      */
-    public void wydluzWypozyczenie(Date nowaData) {
+    void wydluzWypozyczenie(Date nowaData) {
         setData_zwrotu(nowaData);
     }
 
@@ -34,7 +34,7 @@ public class Wypozyczenie {
      *
      * @param oplata naliczona oplata
      */
-    public void naliczDodatkowaOplate(Double oplata) {
+    void naliczDodatkowaOplate(Double oplata) {
         setKoszt_wypozyczenia(getKoszt_wypozyczenia() + oplata);
     }
 
@@ -56,6 +56,7 @@ public class Wypozyczenie {
         this.koszt_wypozyczenia = (data_zwrotu.getTime() - data_wypozyczenia.getTime()) * model.getCenaZaDzienWypozyczenia();
         if (model.getIlosDostepnychEgzemplarzy() < ilosc)
             throw new Exception("Brak dostepnych egzemplarzy. Dostepnych egzemplarzy: " + model.getIlosDostepnychEgzemplarzy() + ",a wypozycza sie: " + ilosc);
+
         int i = 0;
         int cnt = 0;
         Egzemplarz e;
@@ -86,11 +87,11 @@ public class Wypozyczenie {
         this.data_zwrotu = data_zwrotu;
     }
 
-    public void setKoszt_wypozyczenia(Double koszt_wypozyczenia) {
+    private void setKoszt_wypozyczenia(Double koszt_wypozyczenia) {
         this.koszt_wypozyczenia = koszt_wypozyczenia;
     }
 
-    public Integer getId_wypozyczajacego() {
+    private Integer getId_wypozyczajacego() {
         return id_wypozyczajacego;
     }
 
@@ -110,8 +111,12 @@ public class Wypozyczenie {
         return egzemplarze;
     }
 
-    public void addToEgzemplarze(Egzemplarz e) {
+    private void addToEgzemplarze(Egzemplarz e) {
         this.egzemplarze.add(e);
+    }
+
+    void zglosZagubienieZniszczenie(int ilosc){
+
     }
 
     @Override

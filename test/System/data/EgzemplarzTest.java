@@ -11,6 +11,7 @@ public class EgzemplarzTest {
     Kategoria kat;
     Egzemplarz eg;
 
+
     @Before
     public void setUp() {
         kat=new Kategoria("kat","");

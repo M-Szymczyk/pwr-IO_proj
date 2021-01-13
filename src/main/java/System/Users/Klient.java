@@ -11,6 +11,7 @@ import java.util.Date;
  * Klasa odpowiedzialana za przechowywanie inforamcji o wypozyczeniach klienta
  */
 public class Klient extends Uzytkownik {
+    private int idCnt = 0;
     private final Integer idKlienta;
     private ArrayList<Wypozyczenie> wypozyczenia;
     private Double naleznoscDoZaplaty;
@@ -162,9 +163,10 @@ public class Klient extends Uzytkownik {
      * @param email     email kleinta
      * @param idKlienta id klienta //przydal by sie kostruktor z jakims przydzieleaniem id klienta
      */
-    public Klient(String imie, String nazwisko, String login, String haslo, String email, Integer idKlienta) {
+    public Klient(String imie, String nazwisko, String login, String haslo, String email) {
         super(imie, nazwisko, login, haslo, email, TypUzytkownika.KLIENT);
-        this.idKlienta = idKlienta;
+        this.idKlienta = idCnt + 1;
+        idCnt++;
         naleznoscDoZaplaty = 0.0;
         wypozyczenia = new ArrayList<>();
     }

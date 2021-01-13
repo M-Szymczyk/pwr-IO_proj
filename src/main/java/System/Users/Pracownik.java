@@ -13,13 +13,13 @@ public class Pracownik extends Uzytkownik {
         this.typUzytkownika = TypUzytkownika.PRACOWNIK;
     }
 
-    public void dodajNowyModel(String nazwa, Kategoria kat) throws AppException {
+    public void dodajNowyModel(String nazwa, Kategoria kat) throws Exception {
         Model currModel = new Model(nazwa, kat);
         Aplikacja.dodajModel(currModel);
     }
 
     public void dodajNowyModel(String nazwa, double cenaZaDzien, double cenaZaEgzemplarz,
-                               Kategoria kategoria) throws AppException {
+                               Kategoria kategoria) throws Exception {
         Model currModel = new Model(nazwa, cenaZaDzien, cenaZaEgzemplarz, kategoria);
         Aplikacja.dodajModel(currModel);
     }
@@ -42,7 +42,7 @@ public class Pracownik extends Uzytkownik {
         }
     }
 
-    public void edytujModel(String name) throws AppException {
+    public void edytujModel(String name) throws Exception {
         Scanner scan = new Scanner(System.in);
         System.out.print("Nowa nazwa: ");
         String newName = scan.nextLine();
@@ -66,7 +66,7 @@ public class Pracownik extends Uzytkownik {
         Aplikacja.edytujModel(name, newName, cenaZaDzien, cenaZaEgzemplarz, kategoria);
     }
 
-    public void edytujOpisModelu(String nazwa, String opis) {
+    public void edytujOpisModelu(String nazwa, String opis) throws Exception {
         Aplikacja.edytujOpisModelu(nazwa, opis);
     }
 

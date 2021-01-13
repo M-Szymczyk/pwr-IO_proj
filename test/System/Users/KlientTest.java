@@ -27,7 +27,7 @@ public class KlientTest {
         model.setEgzemplarze(egzemplarzArrayList);
         model.setIlosDostepnychEgzemplarzy(egzemplarzArrayList.size());
 
-        klient = new Klient("mikolaj", "ktos", "admin", "admin", "admin@admin.pl", 1);
+        klient = new Klient("mikolaj", "ktos", "admin", "admin", "admin@admin.pl");
 
         wypozyczenie = new Wypozyczenie(klient.getIdKlienta(), new Date(1), new Date(15), model, 5);
     }
