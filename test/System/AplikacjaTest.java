@@ -115,5 +115,19 @@ public class AplikacjaTest {
             assertEquals("Nie ma takiej kategorii", e.getMessage());
         }
     }
+    @Test
+    public void test3_4EdytujModel(){
+        Kategoria k = app.kategorie.get(0);
+        Model m = new Model("modelTest4", 110.0, 220.0, k);
+        int index = app.modele.size()-1;
+        try {
+            app.dodajModel(m);
+            app.edytujModel("modelTest4", "nowa nazwa4", 50.5, 66.5,app.kategorie.get(0).getNazwaKategorii());
+            assertEquals(k.getNazwaKategorii(), app.modele.get(index).getKategoria().getNazwaKategorii());
+
+        }catch (Exception e){
+            e.getMessage();
+        }
+    }
 
 }

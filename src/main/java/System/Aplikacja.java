@@ -165,12 +165,13 @@ public class Aplikacja {
                 }
             }
         }
-        if (znalezionoKategorie == false) {
-            throw new Exception("Nie ma takiej kategorii");
-        }
         if (!znalezionoModel) {
             throw new Exception("Nie ma takiego modelu");
         }
+        if (znalezionoKategorie == false) {
+            throw new Exception("Nie ma takiej kategorii");
+        }
+
     }
 
     public static Kategoria wyszukajKategorie(String nazwa) throws Exception {
