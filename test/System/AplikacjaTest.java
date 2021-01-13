@@ -74,7 +74,7 @@ public class AplikacjaTest {
     public void test3_1EdytujModel(){
         Kategoria k = app.kategorie.get(0);
         Model m = new Model("modelTest", 110.0, 220.0, k);
-        int index = app.modele.size()-1;
+        int index = app.modele.size();
         try {
             app.dodajModel(m);
             app.edytujModel("modelTest", "nowa nazwa", 50.5, 66.5, k.getNazwaKategorii());
