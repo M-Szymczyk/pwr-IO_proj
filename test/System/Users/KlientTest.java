@@ -3,19 +3,27 @@ package System.Users;
 import System.data.*;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 import static org.junit.Assert.*;
 
+@RunWith(Parameterized.class)
 public class KlientTest {
+    @Parameterized.Parameter
     Model model;
+    @Parameterized.Parameter
     Wypozyczenie wypozyczenie;
+    @Parameterized.Parameter
     Klient klient;
 
-    @Before
+    @BeforeClass
     public void setUp() throws Exception {
         Kategoria kategoria = new Kategoria("testKat", "");
         model = new Model("testModel", kategoria);
@@ -39,23 +47,23 @@ public class KlientTest {
         assertNotEquals("Test czy oplata zostala zwiekszona", kasa, klient.getNaleznoscDoZaplaty());
     }
 
-    /**
-     * test w przypadku gdy podano zbyt duza liczbe uszkodzonego sprzetu
-     */
-    @Test(expected = Exception.class)
-    public void zglosZgubienieZniszczenia1() throws Exception {
-        double kasa = klient.getNaleznoscDoZaplaty();
-        klient.zglosZgubienieZniszczenia(wypozyczenie, 100);
-    }
-
-    /**
-     * test w przypadku gdy podao zbyt małą liczbe uszkodzonego sprzetu
-     */
-    @Test(expected = Exception.class)
-    public void zglosZgubienieZniszczenia2() throws Exception {
-        double kasa = klient.getNaleznoscDoZaplaty();
-        klient.zglosZgubienieZniszczenia(wypozyczenie, -1);
-    }
+//    /**
+//     * test w przypadku gdy podano zbyt duza liczbe uszkodzonego sprzetu
+//     */
+//    @Test(expected = Exception.class)
+//    public void zglosZgubienieZniszczenia1() throws Exception {
+//        double kasa = klient.getNaleznoscDoZaplaty();
+//        klient.zglosZgubienieZniszczenia(wypozyczenie, 100);
+//    }
+//
+//    /**
+//     * test w przypadku gdy podao zbyt małą liczbe uszkodzonego sprzetu
+//     */
+//    @Test(expected = Exception.class)
+//    public void zglosZgubienieZniszczenia2() throws Exception {
+//        double kasa = klient.getNaleznoscDoZaplaty();
+//        klient.zglosZgubienieZniszczenia(wypozyczenie, -1);
+//    }
 
     @Test
     public void wydluzWypozyczenie() throws Exception {
