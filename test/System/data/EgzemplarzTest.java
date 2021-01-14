@@ -6,7 +6,9 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
+import org.junit.experimental.categories.Category;
 
+import System.EditTest;
 import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EgzemplarzTest {
@@ -41,6 +43,8 @@ public class EgzemplarzTest {
         assertEquals(model, eg.getModel());
     }
 
+
+    @Category(EditTest.class)
     @Test(expected = Exception.class)
     public void zmienStanSprzetu() throws Exception {
         try {

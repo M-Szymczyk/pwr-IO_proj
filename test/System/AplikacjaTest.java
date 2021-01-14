@@ -4,6 +4,7 @@ import System.Users.Klient;
 import System.Users.TypUzytkownika;
 import System.data.*;
 import org.junit.*;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -27,9 +28,7 @@ public class AplikacjaTest {
         app.modele.add(new Model("model0", app.kategorie.get(0)));
     }
 
-    //@Rule
-    //public ExpectedException e = ExpectedException.none();
-
+    @Category(DodawanieTest.class)
     @Test
     public void test1_1DodajKategorie(){
         try {
@@ -40,6 +39,7 @@ public class AplikacjaTest {
         }
     }
 
+    @Category(DodawanieTest.class)
     @Test
     public void test1_2DodajKategorie(){
         try {
@@ -50,6 +50,7 @@ public class AplikacjaTest {
         }
     }
 
+    @Category(DodawanieTest.class)
     @Test
     public void test2_1DodajModel(){
         try{
@@ -60,6 +61,7 @@ public class AplikacjaTest {
         }
     }
 
+    @Category(DodawanieTest.class)
     @Test
     public void test2_2DodajModel(){
         try{
@@ -70,6 +72,7 @@ public class AplikacjaTest {
         }
     }
 
+    @Category(EditTest.class)
     @Test
     public void test3_1EdytujModel(){
         Kategoria k = app.kategorie.get(0);
@@ -85,7 +88,7 @@ public class AplikacjaTest {
         }
     }
 
-
+    @Category(EditTest.class)
     @Test
     public void test3_2EdytujModel(){
         Kategoria k = app.kategorie.get(0);
@@ -101,6 +104,7 @@ public class AplikacjaTest {
         }
     }
 
+    @Category(EditTest.class)
     @Test
     public void test3_3EdytujModel(){
         Kategoria k = app.kategorie.get(0);
@@ -115,6 +119,8 @@ public class AplikacjaTest {
             assertEquals("Nie ma takiej kategorii", e.getMessage());
         }
     }
+
+    @Category(EditTest.class)
     @Test
     public void test3_4EdytujModel(){
         Kategoria k = app.kategorie.get(0);

@@ -1,5 +1,6 @@
 package System.Users;
 
+import System.TestsToRepair;
 import System.data.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,7 +14,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static org.junit.Assert.*;
+import System.EditTest;
 
+@Category(TestsToRepair.class)
+@RunWith(Parameterized.class)
 public class KlientTest {
     @Parameterized.Parameter
     Model model;
@@ -22,7 +26,7 @@ public class KlientTest {
     @Parameterized.Parameter
     Klient klient;
 
-    @Before
+    @BeforeClass
     public void setUp() throws Exception {
         Kategoria kategoria = new Kategoria("testKat", "");
         model = new Model("testModel", kategoria);
@@ -64,6 +68,7 @@ public class KlientTest {
 //        klient.zglosZgubienieZniszczenia(wypozyczenie, -1);
 //    }
 
+    @Category(EditTest.class)
     @Test
     public void wydluzWypozyczenie() throws Exception {
         Double naleznosc = klient.getNaleznoscDoZaplaty();
