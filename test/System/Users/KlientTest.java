@@ -14,7 +14,7 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
-    public class KlientTest {
+public class KlientTest {
     @Parameterized.Parameter
     Model model;
     @Parameterized.Parameter
