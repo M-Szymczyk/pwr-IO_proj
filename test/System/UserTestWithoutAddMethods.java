@@ -9,11 +9,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Categories.class)
-@Categories.IncludeCategory(TestsToRepair.class)
+@Categories.IncludeCategory(EditTest.class)
 @Categories.ExcludeCategory(DodawanieTest.class)
 @Suite.SuiteClasses({
-        ModelTest.class,
-        KlientTest.class
+        Uzytkownik.class,
+        KlientTest.class,
+        Pracownik.class
 })
-public class TestsToRepairSuitNoAddMethod {
+public class UserTestWithoutAddMethods {
 }
