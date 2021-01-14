@@ -14,8 +14,7 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
-@RunWith(Parameterized.class)
-public class KlientTest {
+    public class KlientTest {
     @Parameterized.Parameter
     Model model;
     @Parameterized.Parameter
@@ -23,7 +22,7 @@ public class KlientTest {
     @Parameterized.Parameter
     Klient klient;
 
-    @BeforeClass
+    @Before
     public void setUp() throws Exception {
         Kategoria kategoria = new Kategoria("testKat", "");
         model = new Model("testModel", kategoria);
