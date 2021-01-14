@@ -6,7 +6,10 @@ import System.data.Model;
 import System.data.StanSprzetu;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+import System.DodawanieTest;
+import System.EditTest;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -27,11 +30,12 @@ public class PracownikTest {
         p = new Pracownik("im", "naz", "log", "has", "mail");
     }
 
+    @Category(DodawanieTest.class)
     @Test
     public void dodajNowyModel() {
         //todo napisac test
     }
-
+    @Category(DodawanieTest.class)
     @Test
     public void testDodajNowyModel() {
         //todo napisac test
@@ -61,6 +65,7 @@ public class PracownikTest {
 
     }
 
+    @Category(EditTest.class)
     @Test
     public void edytujModel() {
         String input = "nowa nazwa";
@@ -70,6 +75,7 @@ public class PracownikTest {
         assertNotEquals("sprzet uszkodzony", StanSprzetu.USZKODZONY, e.getStan_egzemplarza());
     }
 
+    @Category(EditTest.class)
     @Test
     public void edytujOpisModelu() {
         //todo napisac test

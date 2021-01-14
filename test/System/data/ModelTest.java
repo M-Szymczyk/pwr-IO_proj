@@ -2,11 +2,13 @@ package System.data;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.ArrayList;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.*;
+import System.TestsToRepair;
 
 public class ModelTest {
     Model mod;
@@ -43,6 +45,7 @@ public class ModelTest {
 
     }
 
+    @Category(TestsToRepair.class)
     @Test(expected = Exception.class)
     public void setEgzemplarze2() {
         Model mod1 = new Model("mod1", kat);
