@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 import System.EditTest;
 
 @Category(TestsToRepair.class)
-@RunWith(Parameterized.class)
+//@RunWith(Parameterized.class)
 public class KlientTest {
     @Parameterized.Parameter
     Model model;
@@ -26,7 +26,7 @@ public class KlientTest {
     @Parameterized.Parameter
     Klient klient;
 
-    @BeforeClass
+    @Before
     public void setUp() throws Exception {
         Kategoria kategoria = new Kategoria("testKat", "");
         model = new Model("testModel", kategoria);
